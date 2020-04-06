@@ -1,0 +1,3 @@
+#!/bin/sh
+
+/usr/bin/invoke_app "$@" -C "start_jupyter -A -T @tool pc4covid19.ipynb" -t pc4covid19 -u anaconda3-5.1
