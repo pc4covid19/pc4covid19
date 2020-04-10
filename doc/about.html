@@ -2,9 +2,29 @@
 <p>This model simulates replication dynamics of SARS-CoV-2 (coronavirus / COVID19) in a layer of epithelium. 
 It is being rapidly prototyped and refined with community support (<a href="#model_details">see below</a>). </p>
 
-<p>In this model, SARS-CoV-2 (coronavirus / COVID19) infects a single cell. The virus is uncoated to expose viral RNA, which synthesizes viral proteins that are assembled into a virion. Assembled virions are exported to the environment. Virions diffuse and can infect other cells (including the original cell). </p>
+<p>In this model, SARS-CoV-2 (coronavirus / COVID19) infects a single cell, or a 
+    solution of virions is administered to the extracellular space. The virus is 
+    uncoated to explose viral RNA, which synthesizes viral proteins that are 
+    assembled into a virion. Assembled virions are exported to the environment, 
+    where they can diffuse and infect other cells. In the extracellular space, 
+    virions adhere to ACE2 receptors and get internalized through endocytosis. 
+    Internalized ACE2 receptors release their virus cargo and are recycled back to the surface.
+</p>
+<p>
+The model includes a basic pharmacodynamic response (to assembled virions) to cause 
+    cell apoptosis. Apoptosed cells release some or all of their internal contents, 
+    notably including virions.
+</p>
 
-<p>The model includes a basic pharmacodynamic response (to assembled virions) to cause cell apoptosis. Apoptosed cells release some or all of their internal contents, notably including virions. </p> 
+<p>
+    Please cite this project via the preprint: 
+</p>
+
+<p style="text-align: center;">
+    Y. Wang et al., Rapid community-driven development of a SARS-CoV-2 tissue simulator. 
+    <i>bioRxiv</i> 2020.04.02.019075, 2020, <b>(Preprint)</b>.  
+    doi: <a href="https://dx.doi.org/10.1101/2020.04.02.019075" target="_blank">10.1101/2020.04.02.019075</a>.
+</p>
 
 <p><strong>Legend:</strong></b>
 <ul>
@@ -21,10 +41,23 @@ It is being rapidly prototyped and refined with community support (<a href="#mod
 Black cells are apoptotic (dead from viral load). 
 </li>
 
-<li><strong>Background:</strong> Contour plot of released virus that is diffusion in and above the tissue.
+<li><strong>Background:</strong> Contour plot of released virus that is diffusing in and above the tissue.
 </li>
 
 </ul>
+
+<h3 style="color: red; font-weight: strong">Caveats and disclaimers</h3>
+<strong>This model is under active development using rapid prototyping:</strong>
+<ul>
+<li>It has not been peer reviewed. </li>
+<li>It is intended to drive basic scientific research and public education at this stage.</li>
+<li><strong>It cannot be used for public policy decisions. </strong></li>
+<li><strong>It cannot be used for individual medical decisions.</strong></li>
+</ul>
+
+<p><strong>
+This model will be continually refined with input from the community, particularly experts 
+    in infectious diseases. The validation state will be updated as this progresses.</strong></p>
 
 
 <h2 id="GUI_overview"><strong>GUI Overview</strong></h2>
@@ -33,6 +66,7 @@ Black cells are apoptotic (dead from viral load).
 <li><b>Microenvironment</b> tab:&nbsp;&nbsp; microenvironment parameters that are model-specific</li>
 <li><b>User Params</b> tab:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; user parameters that are model-specific</li>
 <li><b>Out: Plots</b> tab:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; output display of cells and substrates</li>
+<li><b>Animate</b> tab:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; generate an animation of cells</li>
 </ul>
 Clicking the 'Run' button will use the specified parameters and start a simulation. When clicked, it creates an "Output" widget
 that can be clicked/expanded to reveal the progress of the simulation. When the simulation generates output files,
@@ -44,9 +78,25 @@ that will terminate (not pause) the simulation.
 <h2 id="model_details"><strong>Model details</strong></h2>
 <p>This model is being rapidly prototyped. Biological and mathematical detail can be found at:</p>
 
-<p>
-<a href="https://github.com/MathCancer/COVID19/wiki/About"  target="_blank">https://github.com/MathCancer/COVID19/wiki/About</a> (opens in new tab)
-</p>
+<ul>
+<li>
+<b>Project website:</b> <a href="http://covid19.physicell.org"  target="_blank">http://covid19.physicell.org</a> (opens in new tab)
+</li>
+
+<li>
+<b>Model feedback:</b> <a href="https://?" target="_blank">Google feedback form</a> (opens in new tab)
+</li>
+           
+<li>
+<b>Preprint:</b> <a href="https://dx.doi.org/10.1101/2020.04.02.019075" target="_blank">Wang et al. (2020)</a> (opens in new tab)
+</li>
+
+    
+<li>
+<b>GitHub codes:</b> <a href="https://github.com/pc4covid19" target="_blank">pc4covid19 GitHub organization</a> (opens in new tab)
+</li>
+    
+</ul>
 
 <p><strong>We request community help in estimating parameters and improving model assumptions at the link above. </strong>
 </p>
@@ -66,11 +116,14 @@ Note that as the simulation runs, the &quot;# cell frames&quot; field will incre
 
 <p>If there are multiple substrates defined in the Microenvironment, you can select a different one from the drop-down widget in the Plots tab. You can also fix the colormap range of values.</p>
 
-<p>Note that you can download full simulation data for further exploration in your tools of choice.</p>
+<p>Note that you can download full simulation data for further exploration in your tools of choice. And you can also generate an animation of the cells to play in the browser and, optionally, download as a video.</p>
 
 <h3><strong>About the software: </strong></h3> 
 <p>
-This model and cloud-hosted demo are part of the education and outreach for the IU Engineered nanoBIO Node and the NCI-funded cancer systems biology grant U01CA232137. The models are built using PhysiCell: a C++ framework for multicellular systems biology [1] for the core simulation engine and xml2jupyter [2] to create the graphical user interface (GUI).</p>
+This model and cloud-hosted demo are part of the education and outreach 
+    for the IU Engineered nanoBIO Node and the NCI-funded cancer systems biology grant U01CA232137. 
+    The models are built using PhysiCell: a C++ framework for multicellular systems biology [1] 
+    for the core simulation engine and xml2jupyter [2] to create the graphical user interface (GUI).</p>
 
 <ol>
 <li>
@@ -79,3 +132,4 @@ This model and cloud-hosted demo are part of the education and outreach for the 
 <a href="https://joss.theoj.org/papers/10.21105/joss.01408">R. Heiland, D. Mishler, T. Zhang, E. Bower, and P. Macklin. xml2jupyter: Mapping parameters between XML and Jupyter widgets. Journal of Open Source Software 4(39):1408, 2019. DOI: 10.21105/joss.01408.
 </li>
 </ol>
+

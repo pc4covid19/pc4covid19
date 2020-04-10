@@ -12,22 +12,6 @@ ifdef PHYSICELL_CPP
 endif
 
 ARCH := native # best auto-tuning
-# ARCH := core2 # a reasonably safe default for most CPUs since 2007
-# ARCH := corei7
-# ARCH := corei7-avx # earlier i7 
-# ARCH := core-avx-i # i7 ivy bridge or newer 
-# ARCH := core-avx2 # i7 with Haswell or newer
-# ARCH := nehalem
-# ARCH := westmere
-# ARCH := sandybridge # circa 2011
-# ARCH := ivybridge   # circa 2012
-# ARCH := haswell     # circa 2013
-# ARCH := broadwell   # circa 2014
-# ARCH := skylake     # circa 2015
-# ARCH := bonnell
-# ARCH := silvermont
-# ARCH := skylake-avx512
-# ARCH := nocona #64-bit pentium 4 or later 
 
 # CFLAGS := -march=$(ARCH) -Ofast -s -fomit-frame-pointer -mfpmath=both -fopenmp -m64 -std=c++11
 # remove the -march arg to avoid SIGILL error on nanoHUB
@@ -46,7 +30,7 @@ PhysiCell_pugixml.o PhysiCell_settings.o
 
 # put your custom objects here (they should be in the custom_modules directory)
 
-PhysiCell_custom_module_OBJECTS := custom.o
+PhysiCell_custom_module_OBJECTS := custom.o submodel_data_structures.o internal_viral_dynamics.o internal_viral_response.o receptor_dynamics.o
 
 pugixml_OBJECTS := pugixml.o
 
@@ -140,6 +124,18 @@ PhysiCell_settings.o: ./modules/PhysiCell_settings.cpp
 
 custom.o: ./custom_modules/custom.cpp 
 	$(COMPILE_COMMAND) -c ./custom_modules/custom.cpp
+
+submodel_data_structures.o: ./custom_modules/submodel_data_structures.cpp
+	$(COMPILE_COMMAND) -c ./custom_modules/submodel_data_structures.cpp
+
+internal_viral_dynamics.o: ./custom_modules/internal_viral_dynamics.cpp
+	$(COMPILE_COMMAND) -c ./custom_modules/internal_viral_dynamics.cpp
+
+internal_viral_response.o: ./custom_modules/internal_viral_response.cpp
+	$(COMPILE_COMMAND) -c ./custom_modules/internal_viral_response.cpp
+
+receptor_dynamics.o: ./custom_modules/receptor_dynamics.cpp
+	$(COMPILE_COMMAND) -c ./custom_modules/receptor_dynamics.cpp
 
 # cleanup
 

@@ -11,16 +11,16 @@
 		</software>
 		<citation />
 		<current_time units="min">0.000000</current_time>
-		<current_runtime units="sec">0.049247</current_runtime>
-		<created>2020-03-26T10:29:15Z</created>
-		<last_modified>2020-03-26T10:29:15Z</last_modified>
+		<current_runtime units="sec">0.041417</current_runtime>
+		<created>2020-04-10T10:09:51Z</created>
+		<last_modified>2020-04-10T10:09:51Z</last_modified>
 	</metadata>
 	<microenvironment>
 		<domain name="microenvironment">
 			<mesh type="Cartesian" uniform="true" regular="true" units="micron">
-				<bounding_box type="axis-aligned" units="micron">-500.000000 -500.000000 -10.000000 500.000000 500.000000 10.000000</bounding_box>
-				<x_coordinates delimiter=" ">-490.000000 -470.000000 -450.000000 -430.000000 -410.000000 -390.000000 -370.000000 -350.000000 -330.000000 -310.000000 -290.000000 -270.000000 -250.000000 -230.000000 -210.000000 -190.000000 -170.000000 -150.000000 -130.000000 -110.000000 -90.000000 -70.000000 -50.000000 -30.000000 -10.000000 10.000000 30.000000 50.000000 70.000000 90.000000 110.000000 130.000000 150.000000 170.000000 190.000000 210.000000 230.000000 250.000000 270.000000 290.000000 310.000000 330.000000 350.000000 370.000000 390.000000 410.000000 430.000000 450.000000 470.000000 490.000000</x_coordinates>
-				<y_coordinates delimiter=" ">-490.000000 -470.000000 -450.000000 -430.000000 -410.000000 -390.000000 -370.000000 -350.000000 -330.000000 -310.000000 -290.000000 -270.000000 -250.000000 -230.000000 -210.000000 -190.000000 -170.000000 -150.000000 -130.000000 -110.000000 -90.000000 -70.000000 -50.000000 -30.000000 -10.000000 10.000000 30.000000 50.000000 70.000000 90.000000 110.000000 130.000000 150.000000 170.000000 190.000000 210.000000 230.000000 250.000000 270.000000 290.000000 310.000000 330.000000 350.000000 370.000000 390.000000 410.000000 430.000000 450.000000 470.000000 490.000000</y_coordinates>
+				<bounding_box type="axis-aligned" units="micron">-400.000000 -400.000000 -10.000000 400.000000 400.000000 10.000000</bounding_box>
+				<x_coordinates delimiter=" ">-390.000000 -370.000000 -350.000000 -330.000000 -310.000000 -290.000000 -270.000000 -250.000000 -230.000000 -210.000000 -190.000000 -170.000000 -150.000000 -130.000000 -110.000000 -90.000000 -70.000000 -50.000000 -30.000000 -10.000000 10.000000 30.000000 50.000000 70.000000 90.000000 110.000000 130.000000 150.000000 170.000000 190.000000 210.000000 230.000000 250.000000 270.000000 290.000000 310.000000 330.000000 350.000000 370.000000 390.000000</x_coordinates>
+				<y_coordinates delimiter=" ">-390.000000 -370.000000 -350.000000 -330.000000 -310.000000 -290.000000 -270.000000 -250.000000 -230.000000 -210.000000 -190.000000 -170.000000 -150.000000 -130.000000 -110.000000 -90.000000 -70.000000 -50.000000 -30.000000 -10.000000 10.000000 30.000000 50.000000 70.000000 90.000000 110.000000 130.000000 150.000000 170.000000 190.000000 210.000000 230.000000 250.000000 270.000000 290.000000 310.000000 330.000000 350.000000 370.000000 390.000000</y_coordinates>
 				<z_coordinates delimiter=" ">0.000000</z_coordinates>
 				<voxels type="matlab">
 					<filename>initial_mesh0.mat</filename>
@@ -30,35 +30,14 @@
 				<variable name="virion" units="virion/um^3" ID="0">
 					<physical_parameter_set>
 						<conditions />
-						<diffusion_coefficient units="micron^2/min">900.000000</diffusion_coefficient>
+						<diffusion_coefficient units="micron^2/min">90.000000</diffusion_coefficient>
 						<decay_rate units="1/min">0.000000</decay_rate>
 					</physical_parameter_set>
 				</variable>
-				<variable name="uncoated virion" units="virion/um^3" ID="1">
+				<variable name="assembled virion" units="virion/um^3" ID="1">
 					<physical_parameter_set>
 						<conditions />
-						<diffusion_coefficient units="micron^2/min">900.000000</diffusion_coefficient>
-						<decay_rate units="1/min">0.000350</decay_rate>
-					</physical_parameter_set>
-				</variable>
-				<variable name="viral RNA" units="mRNA/um^3" ID="2">
-					<physical_parameter_set>
-						<conditions />
-						<diffusion_coefficient units="micron^2/min">9000.000000</diffusion_coefficient>
-						<decay_rate units="1/min">0.000350</decay_rate>
-					</physical_parameter_set>
-				</variable>
-				<variable name="viral protein" units="protein/um^3" ID="3">
-					<physical_parameter_set>
-						<conditions />
-						<diffusion_coefficient units="micron^2/min">9000.000000</diffusion_coefficient>
-						<decay_rate units="1/min">0.000350</decay_rate>
-					</physical_parameter_set>
-				</variable>
-				<variable name="assembled virion" units="virion/um^3" ID="4">
-					<physical_parameter_set>
-						<conditions />
-						<diffusion_coefficient units="micron^2/min">900.000000</diffusion_coefficient>
+						<diffusion_coefficient units="micron^2/min">90.000000</diffusion_coefficient>
 						<decay_rate units="1/min">0.000000</decay_rate>
 					</physical_parameter_set>
 				</variable>
@@ -96,14 +75,27 @@
 							<label index="22" size="3">motility_bias_direction</label>
 							<label index="25" size="1">persistence_time</label>
 							<label index="26" size="1">motility_reserved</label>
-							<label index="27" size="1">virion_uncoating_rate</label>
-							<label index="28" size="1">uncoated_to_RNA_rate</label>
-							<label index="29" size="1">protein_synthesis_rate</label>
-							<label index="30" size="1">virion_assembly_rate</label>
-							<label index="31" size="1">virion_export_rate</label>
-							<label index="32" size="1">max_infected_apoptosis_rate</label>
-							<label index="33" size="1">max_apoptosis_half_max</label>
-							<label index="34" size="1">apoptosis_hill_power</label>
+							<label index="27" size="1">unbound external ACE2</label>
+							<label index="28" size="1">bound external ACE2</label>
+							<label index="29" size="1">unbound internal ACE2</label>
+							<label index="30" size="1">bound internal ACE2</label>
+							<label index="31" size="1">ACE2 binding rate</label>
+							<label index="32" size="1">ACE2 endocytosis rate</label>
+							<label index="33" size="1">ACE2 cargo release rate</label>
+							<label index="34" size="1">ACE2 recycling rate</label>
+							<label index="35" size="1">virion</label>
+							<label index="36" size="1">uncoated virion</label>
+							<label index="37" size="1">viral RNA</label>
+							<label index="38" size="1">viral protein</label>
+							<label index="39" size="1">assembled virion</label>
+							<label index="40" size="1">virion uncoating rate</label>
+							<label index="41" size="1">uncoated to RNA rate</label>
+							<label index="42" size="1">protein synthesis rate</label>
+							<label index="43" size="1">virion assembly rate</label>
+							<label index="44" size="1">virion export rate</label>
+							<label index="45" size="1">max infected apoptosis rate</label>
+							<label index="46" size="1">max apoptosis half max</label>
+							<label index="47" size="1">apoptosis hill power</label>
 						</labels>
 						<filename>initial_cells_physicell.mat</filename>
 					</simplified_data>
