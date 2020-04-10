@@ -12,7 +12,7 @@ from microenv_params import MicroenvTab
 from user_params import UserTab
 # from svg import SVGTab
 from substrates import SubstrateTab
-# from animate_tab import AnimateTab
+from animate_tab import AnimateTab
 from pathlib import Path
 import platform
 import subprocess
@@ -46,7 +46,7 @@ microenv_tab = MicroenvTab()
 user_tab = UserTab()
 # svg = SVGTab()
 sub = SubstrateTab()
-# animate_tab = AnimateTab()
+animate_tab = AnimateTab()
 
 nanoHUB_flag = False
 if( 'HOME' in os.environ.keys() ):
@@ -236,6 +236,8 @@ def run_done_func(s, rdir):
     # svg.update(rdir)
     sub.update(rdir)
 
+    animate_tab.gen_button.disabled = False
+
 
     # with debug_view:
     #     print('RDF DONE')
@@ -245,6 +247,8 @@ def run_done_func(s, rdir):
 def run_sim_func(s):
     # with debug_view:
     #     print('run_sim_func')
+
+    animate_tab.gen_button.disabled = True
 
     # If cells or substrates toggled off in Config tab, toggle off in Plots tab
     if config_tab.toggle_svg.value == False:
@@ -300,6 +304,7 @@ def run_sim_func(s):
     #     print('run_sim_func DONE')
 
 
+# callback for stdout from simulation
 def outcb(s):
     # This is called when new output is received.
     # Only update file list for certain messages: 
@@ -309,7 +314,7 @@ def outcb(s):
         # svg.update('')
         # sub.update('')
         # sub.update_params(config_tab)
-        sub.update()
+        sub.update()  # this only updates the "# cell frames" (max_frames) when stdout = "current simulated time"
     return s
 
 
@@ -382,11 +387,11 @@ if nanoHUB_flag or hublib_flag:
 
 tab_height = 'auto'
 tab_layout = widgets.Layout(width='auto',height=tab_height, overflow_y='scroll',)   # border='2px solid black',
-# titles = ['About', 'Config Basics', 'Microenvironment', 'User Params', 'Out: Plots', 'Animate']
-titles = ['About', 'Config Basics', 'Microenvironment', 'User Params', 'Out: Plots']
+titles = ['About', 'Config Basics', 'Microenvironment', 'User Params', 'Out: Plots', 'Animate']
+# titles = ['About', 'Config Basics', 'Microenvironment', 'User Params', 'Out: Plots']
 
-# tabs = widgets.Tab(children=[about_tab.tab, config_tab.tab, microenv_tab.tab, user_tab.tab, sub.tab, animate_tab.tab],
-tabs = widgets.Tab(children=[about_tab.tab, config_tab.tab, microenv_tab.tab, user_tab.tab, sub.tab],
+# tabs = widgets.Tab(children=[about_tab.tab, config_tab.tab, microenv_tab.tab, user_tab.tab, sub.tab],
+tabs = widgets.Tab(children=[about_tab.tab, config_tab.tab, microenv_tab.tab, user_tab.tab, sub.tab, animate_tab.tab],
                    _titles={i: t for i, t in enumerate(titles)},
                    layout=tab_layout)
 
