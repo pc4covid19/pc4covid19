@@ -1,8 +1,8 @@
 # pc4covid19 - COVID19 tissue simulator nanoHUB app
 
-**Version:** 2.0
+**Version:** 2.1 - uses the core model at https://github.com/pc4covid19/COVID19/releases/tag/0.2.1
 
-**Release date:** 10 April 2020 
+**Release date:** 26 April 2020 
 
 ## Overview
 This repository contains code and data for the nanoHUB app https://nanohub.org/tools/pc4covid19.
@@ -20,7 +20,10 @@ for a summary of changes to the model.
 
 **This model will be continually refined with input from the community, particularly experts in infectious diseases. The validation state will be updated as this progresses.**
 
-## Release summary: 
+## Release summary:
+### 2.1:
+Sync up with the version number of the published app, https://nanohub.org/tools/pc4covid19, and include a reference to the version of the core model in this README.
+
 ### 2.0:
 The major change to the GUI in this release is the addition of an 'Animate' tab.
 This allows animation of cells (not substrates) in the tab and the generation of a .mp4
