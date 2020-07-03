@@ -1,0 +1,6 @@
+
+diff -r src/BioFVM/ ~/dev/COVID19-dev/PhysiCell/BioFVM/
+diff -r src/core/ ~/dev/COVID19-dev/PhysiCell/core/
+diff -r src/custom_modules/ ~/dev/COVID19-dev/PhysiCell/custom_modules/
+diff data/PhysiCell_settings.xml ~/dev/COVID19-dev/PhysiCell/config/PhysiCell_settings.xml
+

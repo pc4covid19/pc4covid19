@@ -1,0 +1,8 @@
+
+~/git/pc4covid19-rheiland-master/src$ rm -rf core custom_modules/
+~/git/pc4covid19-rheiland-master/src$ cp -R ~/dev/COVID19-dev/PhysiCell/core .
+~/git/pc4covid19-rheiland-master/src$ ls
+ALL_CITATIONS.txt	Makefile		config.xml		core/			modules/
+BioFVM/			VERSION.txt		config_5day_1core.xml	main.cpp		output/
+~/git/pc4covid19-rheiland-master/src$ cp -R ~/dev/COVID19-dev/PhysiCell/custom_modules .
+
