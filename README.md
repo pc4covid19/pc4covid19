@@ -2,7 +2,7 @@
 
 **Version:** 3.2
 
-**Release date:** 17 July 2020 
+**Release date:** 20 July 2020 
 
 ## Overview
 This repository contains code and data for the nanoHUB app https://nanohub.org/tools/pc4covid19.
