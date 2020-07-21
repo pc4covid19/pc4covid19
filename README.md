@@ -1,8 +1,8 @@
 # pc4covid19 - COVID19 (SARS-CoV-2) tissue simulator nanoHUB app
 
-**Version:** 3.1
+**Version:** 3.2
 
-**Release date:** 3 July 2020 
+**Release date:** 21 July 2020 
 
 ## Overview
 This repository contains code and data for the nanoHUB app https://nanohub.org/tools/pc4covid19.
@@ -21,6 +21,9 @@ for a summary of changes to the model.
 **This model will be continually refined with input from the community, particularly experts in infectious diseases. The validation state will be updated as this progresses.**
 
 ## Release summary: 
+### 3.2:
+Updates to the core model; nothing new in the GUI.
+
 ### 3.1:
 Minor updates to `About` text, e.g., explaining nature of stochastic results. Edits to `immune_submodels.cpp` (see details in the core model repository).
 
