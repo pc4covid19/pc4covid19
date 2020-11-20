@@ -1,6 +1,6 @@
 <h2 id="about"><strong>COVID19 tissue simulator</strong></h2>
 <p>This model simulates viral dynamics of SARS-CoV-2 (coronavirus / COVID19) in a layer of epithelium
-and an immune response. It is being rapidly prototyped and refined with community support 
+and several submodels (such as single-cell response, pyroptosis death model, tissue-damage model, lymph node model and immune response). It is being rapidly prototyped and refined with community support 
 (<a href="#model_details">see below</a>). </p>
 
 <p><b>Please note that this is a stochastic model: for some simulation runs, you may see the immune system fail to respond. Users are encouraged to try the simulation multiple times.</b></p>
@@ -19,11 +19,17 @@ and an immune response. It is being rapidly prototyped and refined with communit
         to the tissue (exocytosed). </li>
 
        <li><strong>Single-cell response:</strong> Infected cells secrete a chemokine that may attract immune cells. In a simple 
-        pharmacodynamics response (to assembled virions), infected cells can undergo apoptosis. Apoptosed cells release some or 
-        all of their internal contents, notably including virions. </li>
+        pharmacodynamics response (to assembled virions), infected cells can undergo apoptosis. In version 4, infected cells also 
+        secrete Type-I interferon which induces the inhibition of viral protein synthesis. Apoptosed cells release some or all of their internal contents, notably including virions. </li>
 
-       <li><strong><span style="background-color: red; color: white; padding-left: 0.1in; padding-right: 0.1in">
-        <strong>Immune response (new in version 3)</strong></span>:</strong> </li> 
+       <li><strong>Pyroptosis death model:</strong> In version 4, we introduced a model of cell death via pyroptosis. Viral RNA levels within the cell act as a DAMP/PAMP that initiates the pyroptosis cascade. The intracellular processes result in the secretion of cytokines IL-1&beta; and IL-18, as well as cell swelling and rupture.</li>
+
+       <li><strong>Tissue-damage model:</strong> In version 4, fibroblast-mediated collagen deposition was included to account for the fibrosis at the damaged site in response to immune response-induced tissue injury, in which fibroblast cells are recruited into the tissue by following the gradient of anti-inflammatory cytokine and deposit collagen in the place where infected cells are killed by CD8<sup>+</sup> T cells.</li>
+
+       <li><strong>Lymph node (LN) model:</strong> In version 4, the external immune system was incorporated in the whole model. The presence of virus and infected cells in the tissue induces dendritic cells to activate and egress out of tissue to lymph nodes, where they present antigen to induce activation and proliferation of virus-specific CD4<sup>+</sup> T cells and CD8<sup>+</sup> T cells.</li>
+       
+
+       <li><strong>Immune response:</strong></li> 
 
       <ul>
             <li><strong>Resident (and recruited) macrophages</strong> seek apoptotic cells. They phagocytose (ingest) dead cells 
@@ -33,12 +39,22 @@ and an immune response. It is being rapidly prototyped and refined with communit
             seeking both apoptotic and infected cells by chemotaxis. Activated macrophages can “wear out” and apoptose after phagocytosing 
             too much material.</li>
 
+            <li><strong>Exhausted macrophages</strong> are active macrophages that internalised debris is above a threshold. They would stop phagocytosing in this stage.</li>
+
+            <li><strong>Hyperactivated macrophages</strong> are able to phagocytose infected cells with at least one intracellular viral protein when CD4<sup>+</sup> T cells induce macrophages to a hyperactive state.</li>
+
             <li><strong>Neutrophils</strong> are recruited by accumulated pro-inflammatory cytokine. They seek apoptotic cells, 
             phagocytose them, and activate. Activated neutrophils seek both apoptotic and infected cells. Neutrophils also capture 
             extracellular virions. </li>
 
             <li><strong>CD8<sup>+</sup> T cells</strong> are recruited by accumulated pro-inflammatory cytokine. 
-               They seek and adhere to infected cells. After sufficient contact time with one or more CD8<sup>+</sup> T cells, infected cells undergo apoptosis. </li>
+               They seek and adhere to infected cells. After sufficient contact time with one or more CD8<sup>+</sup> T cells, infected cells undergo apoptosis. They would increase proliferation rate and killing efficacy after activated DCs present antigen to them.</li>
+
+            <li><strong>CD4<sup>+</sup> T cells</strong> are recruited by accumulated pro-inflammatory cytokine. They apoptose naturally and become dead cells. They are activated in the lymph node by three signals: (1) antigenic presentation by the DCs, (2) direct activation by cytokines secreted by DCs, (3) direct activation by cyto-kines secreted by CD4<sup>+</sup> T cells. </li>
+
+            <li><strong>Dendritic cells</strong> residential exit in the tissue and are activated by infected cells and/or virus. Portion of activated DCs leave the tissue to travel to the lymph node. Activated DCs present antigen to CD8<sup>+</sup> T cells, which benefits them from improving proliferation rate and killing efficacy.</li>
+
+            <li><strong>Fibroblast</strong> are recruited into the tissue by anti-inflammatory cytokine. Fibroblast cells apoptose naturally and become dead cells. They move locally in the tissue along up gradients of anti-inflammatory cytokine and deposit collagen continuously in the location where infected cells are killed by CD8<sup>+</sup> T cells. </li>
          </ul>
 
    </ul>
@@ -49,7 +65,7 @@ and an immune response. It is being rapidly prototyped and refined with communit
 </p>
 
 <p style="text-align: center;">
-    Y. Wang et al., Rapid community-driven development of a SARS-CoV-2 tissue simulator. 
+    M. Getz et al., Rapid community-driven development of a SARS-CoV-2 tissue simulator. 
     <i>bioRxiv</i> 2020.04.02.019075, 2020, <b>(Preprint)</b>.  
     doi: <a href="https://dx.doi.org/10.1101/2020.04.02.019075" target="_blank">10.1101/2020.04.02.019075</a>.
 </p>
@@ -84,10 +100,20 @@ and an immune response. It is being rapidly prototyped and refined with communit
 
 <br/>
 
+<li><strong>CD4<sup>+</sup> T cells:</strong> are colored by their cell cycle status </li>
+<ul style="font-family: courier;">
+<li><span style="height: 25px; width: 25px; background-color: orange; display: inline-block; border-radius: 50%; border: 1px solid black;"></span> G0G1, S, G2, M cycle</li>
+<li><span style="height: 25px; width: 25px; background-color: rosybrown; display: inline-block; border-radius: 50%; border: 1px solid black;"></span> Apoptotic</li>
+</ul>
+
+<br/>
+
 <li><strong>macrophage:</strong> are colored by their cell cycle status </li>
 <ul style="font-family: courier;">
-<li><span style="height: 25px; width: 25px; background-color: lime; display: inline-block; border-radius: 50%; border: 1px solid black;"></span> G0G1, S, G2, M cycle</li>
-<li><span style="height: 25px; width: 25px; background-color: fuchsia; display: inline-block; border-radius: 50%; border: 1px solid black;"></span> Flag of activated_immune_cell &gt; 0.5 </li>
+<li><span style="height: 25px; width: 25px; background-color: rgb(35,139,69); display: inline-block; border-radius: 50%; border: 1px solid black;"></span> G0G1, S, G2, M cycle</li>
+<li><span style="height: 25px; width: 25px; background-color: lime; display: inline-block; border-radius: 50%; border: 1px solid black;"></span> Activated macrophage </li>
+<li><span style="height: 25px; width: 25px; background-color: rgb(116,196,118); display: inline-block; border-radius: 50%; border: 1px solid black;"></span> Exhausted macrophage</li>
+<li><span style="height: 25px; width: 25px; background-color: rgb(168,221,181); display: inline-block; border-radius: 50%; border: 1px solid black;"></span> Hyperactivated macrophage</li>
 <li><span style="height: 25px; width: 25px; background-color: rosybrown; display: inline-block; border-radius: 50%; border: 1px solid black;"></span> Apoptotic</li>
 </ul>
 
@@ -96,6 +122,23 @@ and an immune response. It is being rapidly prototyped and refined with communit
 <li><strong>neutrophil:</strong> are colored by their cell cycle status </li>
 <ul style="font-family: courier;">
 <li><span style="height: 25px; width: 25px; background-color: cyan; display: inline-block; border-radius: 50%; border: 1px solid black;"></span> G0G1, S, G2, M cycle</li>
+<li><span style="height: 25px; width: 25px; background-color: rosybrown; display: inline-block; border-radius: 50%; border: 1px solid black;"></span> Apoptotic</li>
+</ul>
+
+<br/>
+
+<li><strong>fibroblast:</strong> are colored by their cell cycle status </li>
+<ul style="font-family: courier;">
+<li><span style="height: 25px; width: 25px; background-color: blueviolet; display: inline-block; border-radius: 50%; border: 1px solid black;"></span> G0G1, S, G2, M cycle</li>
+<li><span style="height: 25px; width: 25px; background-color: rosybrown; display: inline-block; border-radius: 50%; border: 1px solid black;"></span> Apoptotic</li>
+</ul>
+
+<br/>
+
+<li><strong>Dendritic cells:</strong> are colored by their cell cycle status </li>
+<ul style="font-family: courier;">
+<li><span style="height: 25px; width: 25px; background-color: rgb(129,15,124); display: inline-block; border-radius: 50%; border: 1px solid black;"></span> G0G1, S, G2, M cycle</li>
+<li><span style="height: 25px; width: 25px; background-color: deeppink; display: inline-block; border-radius: 50%; border: 1px solid black;"></span> Activated DC </li>
 <li><span style="height: 25px; width: 25px; background-color: rosybrown; display: inline-block; border-radius: 50%; border: 1px solid black;"></span> Apoptotic</li>
 </ul>
 
@@ -128,7 +171,6 @@ This model will be continually refined with input from the community, particular
 <li><b>User Params</b> tab:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; user parameters that are model-specific</li>
 <li><b>Cell Types</b> tab:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; parameters for cell types that are model-specific</li>
 <li><b>Out: Plots</b> tab:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; output display of cells and substrates</li>
-<li><b>Animate</b> tab:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; generate an animation of cells</li>
 </ul>
 Clicking the 'Run' button will use the specified parameters and start a simulation. When clicked, it creates an "Output" widget
 that can be clicked/expanded to reveal the progress of the simulation. When the simulation generates output files,
@@ -150,7 +192,7 @@ that will terminate (not pause) the simulation.
 </li>
            
 <li>
-<b>Preprint:</b> <a href="https://dx.doi.org/10.1101/2020.04.02.019075" target="_blank">Wang et al. (2020)</a> (opens in new tab)
+<b>Preprint:</b> <a href="https://dx.doi.org/10.1101/2020.04.02.019075" target="_blank">Getz et al. (2020)</a> (opens in new tab)
 </li>
 
     
@@ -178,7 +220,7 @@ Note that as the simulation runs, the &quot;# cell frames&quot; field will incre
 
 <p>If there are multiple substrates defined in the Microenvironment, you can select a different one from the drop-down widget in the Plots tab. You can also fix the colormap range of values.</p>
 
-<p>Note that you can download full simulation data for further exploration in your tools of choice. And you can also generate an animation of the cells to play in the browser and, optionally, download as a video.</p>
+<p>Note that you can download full simulation data for further exploration in your tools of choice.</p>
 
 <h3><strong>About the software: </strong></h3> 
 <p>

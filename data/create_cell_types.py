@@ -25,6 +25,7 @@ Dr. Paul Macklin (macklinp@iu.edu)
 
 --- Versions ---
 1.0 - initial version
+4.0 - (Oct 2020) for 'Cell Types' tab format, switched from using cell_definition inheritance style to "flat" (verbose) style
 
 """
 
@@ -123,12 +124,13 @@ class CellTypesTab(object):
 
         cell_type_names_layout={'width':'30%'}
         cell_type_names_style={'description_width':'initial'}
-        self.parent_name = Text(value='None',description='inherits properties from parent type:',disabled=True, style=cell_type_names_style, layout=cell_type_names_layout)
+#        self.parent_name = Text(value='None',description='inherits properties from parent type:',disabled=True, style=cell_type_names_style, layout=cell_type_names_layout)
 
-        explain_inheritance = Label(value='    This cell line inherits its properties from its parent type. Any settings below override those inherited properties.')  # , style=cell_type_names_style, layout=cell_type_names_layout)
+#        explain_inheritance = Label(value='    This cell line inherits its properties from its parent type. Any settings below override those inherited properties.')  # , style=cell_type_names_style, layout=cell_type_names_layout)
 
-        self.cell_type_parent_row = HBox([self.cell_type_dropdown, self.parent_name])
-        self.cell_type_parent_dict = {}
+#        self.cell_type_parent_row = HBox([self.cell_type_dropdown, self.parent_name])
+        self.cell_type_parent_row = HBox([self.cell_type_dropdown])
+#        self.cell_type_parent_dict = {}
 """
 
 
@@ -159,7 +161,7 @@ display_cell_type_default = """
         # and only display the contents of 'default'
         for vb in self.cell_def_vboxes:
             vb.layout.display = 'none'   # vs. 'contents'
-        self.cell_def_vboxes[0].layout.display = 'contents'
+        self.cell_def_vboxes[1].layout.display = 'contents'
 """
 
 cell_type_dropdown_cb = """
@@ -167,8 +169,9 @@ cell_type_dropdown_cb = """
     def cell_type_cb(self, change):
         if change['type'] == 'change' and change['name'] == 'value':
             # print("changed to %s" % change['new'])
-            self.parent_name.value = self.cell_type_parent_dict[change['new']]
-            idx_selected = list(self.cell_type_parent_dict.keys()).index(change['new'])
+            # self.parent_name.value = self.cell_type_parent_dict[change['new']]
+            # idx_selected = list(self.cell_type_parent_dict.keys()).index(change['new'])
+            idx_selected = list(self.cell_type_dict.keys()).index(change['new'])
             # print('index=',idx_selected)
             # self.vbox1.layout.visibility = 'hidden'  # vs. visible
             # self.vbox1.layout.visibility = None 
@@ -178,7 +181,7 @@ cell_type_dropdown_cb = """
             # and only display the contents of the selected one.
             for vb in self.cell_def_vboxes:
                 vb.layout.display = 'none'   # vs. 'contents'
-            self.cell_def_vboxes[idx_selected].layout.display = 'contents'   # vs. 'contents'
+            self.cell_def_vboxes[idx_selected+1].layout.display = 'contents'   # vs. 'contents'  (added "+1" to idx_selected for version 4)
 
 """
 
@@ -388,25 +391,27 @@ for child in uep.findall('cell_definition'):
         print(child.tag, child.attrib)
         print(child.attrib['name'])
     # cells_tab_header += "'" + child.attrib['name'] + ":'"
-    name_str = "'" + child.attrib['name'] + "'"
-    cells_tab_header += ndent + "self.cell_type_dict[" + name_str + "] = " + name_str 
+    if child.attrib['name'] != 'default':   # version 4: don't include 'default' in dropdown widget
+        name_str = "'" + child.attrib['name'] + "'"
+        cells_tab_header += ndent + "self.cell_type_dict[" + name_str + "] = " + name_str 
 
 cells_tab_header += ndent + "self.cell_type_dropdown.options = self.cell_type_dict\n"
 cells_tab_header += ndent + "self.cell_type_dropdown.observe(self.cell_type_cb)\n"
             
 #--- 2) create a dict ("cell_type_parent_dict") of <cell_definition> parents
-for child in uep.findall('cell_definition'):
-    name_str = "'" + child.attrib['name'] + "'"
-    if 'parent_type' in child.attrib:
-        parent_str = "'" + child.attrib['parent_type'] + "'"
-    else:
-        parent_str = "'None'"
-    cells_tab_header += ndent + "self.cell_type_parent_dict[" + name_str + "] = " + parent_str 
-cells_tab_header += "\n\n"
+# for child in uep.findall('cell_definition'):
+#     name_str = "'" + child.attrib['name'] + "'"
+#     if 'parent_type' in child.attrib:
+#         parent_str = "'" + child.attrib['parent_type'] + "'"
+#     else:
+#         parent_str = "'None'"
+#     cells_tab_header += ndent + "self.cell_type_parent_dict[" + name_str + "] = " + parent_str 
+# cells_tab_header += "\n\n"
 # e.g., self.cell_type_parent_dict =  {'default': 'None', 'lung epithelium': 'default', 'immune': 'default', 'CD8 Tcell': 'immune', 'macrophage': 'immune', 'neutrophil': 'immune'}
 
 
-main_vbox_str += indent2 + "self.cell_type_parent_row, explain_inheritance, \n"
+#main_vbox_str += indent2 + "self.cell_type_parent_row, explain_inheritance, \n"
+main_vbox_str += indent2 + "self.cell_type_parent_row,  \n"
 #    cells_tab_header += "\n" + indent + row_name + " = " + "Button(description='" + child.attrib['description'] + "', disabled=True, layout=divider_button_layout)\n"
 
 
@@ -420,6 +425,7 @@ box_count = 0
 #       in the .xml, and generate code for the 2 functions, "fill_gui" and "fill_xml"
 #       
 for cell_def in uep.findall('cell_definition'):
+    color_idx = 0
     cell_def_name = cell_def.attrib['name']
     uep_phenotype = cell_def.find('phenotype')  # cell_def children: currently just <phenotype> and <custom_data> 
 
@@ -1070,6 +1076,7 @@ for cell_def in uep.findall('cell_definition'):
     cell_def_vbox_str += indent + "])\n"
 
     if cell_def_count >= 0:  # NOTE: kind of assuming 0th is "default"
+    # if cell_def_count > 0:  # version 4: don't display "default" cell_definition ?
         main_vbox_str += vbox_name + ", " 
 
     cells_tab_header += cell_def_vbox_str

@@ -1,6 +1,30 @@
 VERSION := $(shell grep . VERSION.txt | cut -f1 -d:)
 PROGRAM_NAME := myproj
 
+osRelease = $(shell lsb_release -r | sed -e "s/Release:\W*//" -e "s/\..*//")
+ifeq ($(osRelease),7)
+   hostName = $(shell hostname | sed -e "s:[-_].*::")$(osRelease)
+else
+   hostName = $(shell hostname | sed -e "s:[-_].*::")
+endif
+
+ifeq ($(hostName),nanohub7)
+   BIN = ../bin
+	MODINIT = . /etc/environ.sh
+   MODCMD = use -e -r anaconda3-5.1
+else
+ifeq ($(hostName),rice7)
+   BIN = ../bin/rice7
+	MODINIT = . $(MODULESHOME)/init/sh
+   MODCMD = module purge 2> /dev/null; module load gcc/7.3.0
+endif
+ifeq ($(hostName),brown7)
+   BIN = ../bin/brown7
+	MODINIT = . $(MODULESHOME)/init/sh
+   MODCMD = module purge 2> /dev/null; module load gcc/7.3.0
+endif
+endif
+
 CC := g++
 
 # Check for environment definitions of compiler 
@@ -46,7 +70,7 @@ PhysiCell_pugixml.o PhysiCell_settings.o
 
 # put your custom objects here (they should be in the custom_modules directory)
 
-PhysiCell_custom_module_OBJECTS := custom.o submodel_data_structures.o internal_viral_dynamics.o internal_viral_response.o receptor_dynamics.o immune_submodels.o epithelium_submodel.o
+PhysiCell_custom_module_OBJECTS := custom.o external_immune.o submodel_data_structures.o internal_viral_dynamics.o internal_viral_response.o receptor_dynamics.o immune_submodels.o epithelium_submodel.o
 
 pugixml_OBJECTS := pugixml.o
 
@@ -147,6 +171,9 @@ submodel_data_structures.o: ./custom_modules/submodel_data_structures.cpp
 internal_viral_dynamics.o: ./custom_modules/internal_viral_dynamics.cpp
 	$(COMPILE_COMMAND) -c ./custom_modules/internal_viral_dynamics.cpp
 
+external_immune.o: ./custom_modules/external_immune.cpp
+	$(COMPILE_COMMAND) -c ./custom_modules/external_immune.cpp
+
 internal_viral_response.o: ./custom_modules/internal_viral_response.cpp
 	$(COMPILE_COMMAND) -c ./custom_modules/internal_viral_response.cpp
 
@@ -162,15 +189,17 @@ epithelium_submodel.o: ./custom_modules/epithelium_submodel.cpp
 # cleanup
 # next 2 targets for nanoHUB
 install:
-	. /etc/environ.sh; use -e -r anaconda3-5.1; make all
-	cp $(PROGRAM_NAME) ../bin
+	$(MODINIT); $(MODCMD);  make all
+	install --mode 0755 -D $(PROGRAM_NAME) $(BIN)/$(PROGRAM_NAME)
 
 distclean: clean
-	rm -f ../bin/$(PROGRAM_NAME)
+	rm -f $(BIN)/$(PROGRAM_NAME)
+	rm -rf $(BIN)/__pycache__
+	rm -rf ../.ipynb_checkpoints
 
 clean:
 	rm -f *.o
-	rm -f $(PROGRAM_NAME)*
+	rm -f $(PROGRAM_NAME)
 	
 data-cleanup:
 	rm -f *.mat

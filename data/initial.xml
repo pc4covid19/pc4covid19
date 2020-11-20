@@ -11,9 +11,9 @@
 		</software>
 		<citation />
 		<current_time units="min">0.000000</current_time>
-		<current_runtime units="sec">0.074109</current_runtime>
-		<created>2020-06-29T13:38:32Z</created>
-		<last_modified>2020-06-29T13:38:32Z</last_modified>
+		<current_runtime units="sec">0.114985</current_runtime>
+		<created>2020-11-17T01:06:32Z</created>
+		<last_modified>2020-11-17T01:06:32Z</last_modified>
 	</metadata>
 	<microenvironment>
 		<domain name="microenvironment">
@@ -44,7 +44,7 @@
 				<variable name="interferon 1" units="mol/micron^3" ID="2">
 					<physical_parameter_set>
 						<conditions />
-						<diffusion_coefficient units="micron^2/min">555.560000</diffusion_coefficient>
+						<diffusion_coefficient units="micron^2/min">25.000000</diffusion_coefficient>
 						<decay_rate units="1/min">0.010200</decay_rate>
 					</physical_parameter_set>
 				</variable>
@@ -66,6 +66,27 @@
 					<physical_parameter_set>
 						<conditions />
 						<diffusion_coefficient units="micron^2/min">555.560000</diffusion_coefficient>
+						<decay_rate units="1/min">0.010200</decay_rate>
+					</physical_parameter_set>
+				</variable>
+				<variable name="pro-pyroptosis cytokine" units="mol/micron^3" ID="6">
+					<physical_parameter_set>
+						<conditions />
+						<diffusion_coefficient units="micron^2/min">5.560000</diffusion_coefficient>
+						<decay_rate units="1/min">0.010200</decay_rate>
+					</physical_parameter_set>
+				</variable>
+				<variable name="anti-inflammatory cytokine" units="mol/micron^3" ID="7">
+					<physical_parameter_set>
+						<conditions />
+						<diffusion_coefficient units="micron^2/min">555.560000</diffusion_coefficient>
+						<decay_rate units="1/min">0.010200</decay_rate>
+					</physical_parameter_set>
+				</variable>
+				<variable name="collagen" units="mol/micron^3" ID="8">
+					<physical_parameter_set>
+						<conditions />
+						<diffusion_coefficient units="micron^2/min">0.000001</diffusion_coefficient>
 						<decay_rate units="1/min">0.010200</decay_rate>
 					</physical_parameter_set>
 				</variable>
@@ -107,40 +128,77 @@
 							<label index="28" size="1">uncoated_virion</label>
 							<label index="29" size="1">viral_RNA</label>
 							<label index="30" size="1">viral_protein</label>
-							<label index="31" size="1">assembled_virion</label>
-							<label index="32" size="1">virion_uncoating_rate</label>
-							<label index="33" size="1">uncoated_to_RNA_rate</label>
-							<label index="34" size="1">protein_synthesis_rate</label>
-							<label index="35" size="1">virion_assembly_rate</label>
-							<label index="36" size="1">virion_export_rate</label>
-							<label index="37" size="1">unbound_external_ACE2</label>
-							<label index="38" size="1">bound_external_ACE2</label>
-							<label index="39" size="1">unbound_internal_ACE2</label>
-							<label index="40" size="1">bound_internal_ACE2</label>
-							<label index="41" size="1">ACE2_binding_rate</label>
-							<label index="42" size="1">ACE2_endocytosis_rate</label>
-							<label index="43" size="1">ACE2_cargo_release_rate</label>
-							<label index="44" size="1">ACE2_recycling_rate</label>
-							<label index="45" size="1">max_infected_apoptosis_rate</label>
-							<label index="46" size="1">max_apoptosis_half_max</label>
-							<label index="47" size="1">apoptosis_hill_power</label>
-							<label index="48" size="1">virus_fraction_released_at_death</label>
-							<label index="49" size="1">infected_cell_chemokine_secretion_rate</label>
-							<label index="50" size="1">debris_secretion_rate</label>
-							<label index="51" size="1">infected_cell_chemokine_secretion_activated</label>
-							<label index="52" size="1">TCell_contact_time</label>
-							<label index="53" size="1">cell_attachment_rate</label>
-							<label index="54" size="1">cell_attachment_lifetime</label>
-							<label index="55" size="1">TCell_contact_death_threshold</label>
-							<label index="56" size="1">max_attachment_distance</label>
-							<label index="57" size="1">elastic_attachment_coefficient</label>
-							<label index="58" size="1">relative_maximum_volume</label>
-							<label index="59" size="1">phagocytosis_rate</label>
-							<label index="60" size="1">sensitivity_to_debris_chemotaxis</label>
-							<label index="61" size="1">sensitivity_to_chemokine_chemotaxis</label>
-							<label index="62" size="1">activated_speed</label>
-							<label index="63" size="1">activated_cytokine_secretion_rate</label>
-							<label index="64" size="1">activated_immune_cell</label>
+							<label index="31" size="1">export_virion</label>
+							<label index="32" size="1">assembled_virion</label>
+							<label index="33" size="1">virion_uncoating_rate</label>
+							<label index="34" size="1">uncoated_to_RNA_rate</label>
+							<label index="35" size="1">max_RNA_replication_rate</label>
+							<label index="36" size="1">RNA_replication_half</label>
+							<label index="37" size="1">basal_RNA_degradation_rate</label>
+							<label index="38" size="1">protein_synthesis_rate</label>
+							<label index="39" size="1">virion_assembly_rate</label>
+							<label index="40" size="1">virion_export_rate</label>
+							<label index="41" size="1">unbound_external_ACE2</label>
+							<label index="42" size="1">bound_external_ACE2</label>
+							<label index="43" size="1">unbound_internal_ACE2</label>
+							<label index="44" size="1">bound_internal_ACE2</label>
+							<label index="45" size="1">ACE2_binding_rate</label>
+							<label index="46" size="1">ACE2_endocytosis_rate</label>
+							<label index="47" size="1">ACE2_cargo_release_rate</label>
+							<label index="48" size="1">ACE2_recycling_rate</label>
+							<label index="49" size="1">max_infected_apoptosis_rate</label>
+							<label index="50" size="1">max_apoptosis_half_max</label>
+							<label index="51" size="1">apoptosis_hill_power</label>
+							<label index="52" size="1">virus_fraction_released_at_death</label>
+							<label index="53" size="1">infected_cell_chemokine_secretion_rate</label>
+							<label index="54" size="1">debris_secretion_rate</label>
+							<label index="55" size="1">infected_cell_chemokine_secretion_activated</label>
+							<label index="56" size="1">nuclear_NFkB</label>
+							<label index="57" size="1">inactive_NLRP3</label>
+							<label index="58" size="1">active_NLRP3</label>
+							<label index="59" size="1">bound_NLRP3</label>
+							<label index="60" size="1">bound_ASC</label>
+							<label index="61" size="1">bound_caspase1</label>
+							<label index="62" size="1">cleaved_gasderminD</label>
+							<label index="63" size="1">pro_IL_1b</label>
+							<label index="64" size="1">cytoplasmic_IL_1b</label>
+							<label index="65" size="1">external_IL_1b</label>
+							<label index="66" size="1">cytoplasmic_IL_18</label>
+							<label index="67" size="1">external_IL_18</label>
+							<label index="68" size="1">cytoplasmic_volume</label>
+							<label index="69" size="1">cell_pyroptosis_flag</label>
+							<label index="70" size="1">cell_bystander_pyroptosis_flag</label>
+							<label index="71" size="1">cell_virus_induced_apoptosis_flag</label>
+							<label index="72" size="1">internalised_pro_pyroptosis_cytokine</label>
+							<label index="73" size="1">interferon_secretion_rate_via_infection</label>
+							<label index="74" size="1">max_interferon_secretion_rate_via_paracrine</label>
+							<label index="75" size="1">interferon_max_response_threshold</label>
+							<label index="76" size="1">interferon_activation</label>
+							<label index="77" size="1">interferon_max_virus_inhibition</label>
+							<label index="78" size="1">interferon_viral_RNA_threshold</label>
+							<label index="79" size="1">interferon_viral_RNA_detection</label>
+							<label index="80" size="1">TCell_detection</label>
+							<label index="81" size="1">TCell_contact_time</label>
+							<label index="82" size="1">cell_attachment_rate</label>
+							<label index="83" size="1">cell_attachment_lifetime</label>
+							<label index="84" size="1">TCell_contact_death_threshold</label>
+							<label index="85" size="1">max_attachment_distance</label>
+							<label index="86" size="1">elastic_attachment_coefficient</label>
+							<label index="87" size="1">time_to_next_phagocytosis</label>
+							<label index="88" size="1">material_internalisation_rate</label>
+							<label index="89" size="1">threshold_macrophage_volume</label>
+							<label index="90" size="1">threshold_neutrophil_volume</label>
+							<label index="91" size="1">exhausted_macrophage_death_rat</label>
+							<label index="92" size="1">ability_to_phagocytose_infected_cell</label>
+							<label index="93" size="1">time_of_DC_departure</label>
+							<label index="94" size="1">phagocytosis_rate</label>
+							<label index="95" size="1">sensitivity_to_debris_chemotaxis</label>
+							<label index="96" size="1">sensitivity_to_chemokine_chemotaxis</label>
+							<label index="97" size="1">activated_speed</label>
+							<label index="98" size="1">activated_cytokine_secretion_rate</label>
+							<label index="99" size="1">activated_immune_cell</label>
+							<label index="100" size="1">antiinflammatory_cytokine_secretion_rate</label>
+							<label index="101" size="1">collagen_secretion_rate</label>
 						</labels>
 						<filename>initial_cells_physicell.mat</filename>
 					</simplified_data>

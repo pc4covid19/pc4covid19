@@ -71,8 +71,8 @@ class MicroenvTab(object):
 
         param_name9 = Button(description='diffusion_coefficient', disabled=True, layout=name_button_layout)
 
-        self.interferon_1_diffusion_coefficient = FloatText(value=555.56,
-          step=10,style=style, layout=widget_layout)
+        self.interferon_1_diffusion_coefficient = FloatText(value=25,
+          step=1,style=style, layout=widget_layout)
 
         param_name10 = Button(description='decay_rate', disabled=True, layout=name_button_layout)
 
@@ -145,6 +145,66 @@ class MicroenvTab(object):
 
         self.debris_Dirichlet_boundary_condition = FloatText(value=0,style=style, layout=widget_layout)
         self.debris_Dirichlet_boundary_condition_toggle = Checkbox(description='on/off', disabled=False,style=style, layout=widget_layout)
+
+        menv_var7 = Button(description='pro_pyroptosis_cytokine (mol/micron^3)', disabled=True, layout=name_button_layout)
+        menv_var7.style.button_color = 'tan'
+
+        param_name25 = Button(description='diffusion_coefficient', disabled=True, layout=name_button_layout)
+
+        self.pro_pyroptosis_cytokine_diffusion_coefficient = FloatText(value=5.56,
+          step=0.1,style=style, layout=widget_layout)
+
+        param_name26 = Button(description='decay_rate', disabled=True, layout=name_button_layout)
+
+        self.pro_pyroptosis_cytokine_decay_rate = FloatText(value=1.02e-2,
+          step=0.001,style=style, layout=widget_layout)
+        param_name27 = Button(description='initial_condition', disabled=True, layout=name_button_layout)
+
+        self.pro_pyroptosis_cytokine_initial_condition = FloatText(value=0,style=style, layout=widget_layout)
+        param_name28 = Button(description='Dirichlet_boundary_condition', disabled=True, layout=name_button_layout)
+
+        self.pro_pyroptosis_cytokine_Dirichlet_boundary_condition = FloatText(value=0,style=style, layout=widget_layout)
+        self.pro_pyroptosis_cytokine_Dirichlet_boundary_condition_toggle = Checkbox(description='on/off', disabled=False,style=style, layout=widget_layout)
+
+        menv_var8 = Button(description='anti_inflammatory_cytokine (mol/micron^3)', disabled=True, layout=name_button_layout)
+        menv_var8.style.button_color = 'lightgreen'
+
+        param_name29 = Button(description='diffusion_coefficient', disabled=True, layout=name_button_layout)
+
+        self.anti_inflammatory_cytokine_diffusion_coefficient = FloatText(value=555.56,
+          step=10,style=style, layout=widget_layout)
+
+        param_name30 = Button(description='decay_rate', disabled=True, layout=name_button_layout)
+
+        self.anti_inflammatory_cytokine_decay_rate = FloatText(value=1.02e-2,
+          step=0.001,style=style, layout=widget_layout)
+        param_name31 = Button(description='initial_condition', disabled=True, layout=name_button_layout)
+
+        self.anti_inflammatory_cytokine_initial_condition = FloatText(value=0,style=style, layout=widget_layout)
+        param_name32 = Button(description='Dirichlet_boundary_condition', disabled=True, layout=name_button_layout)
+
+        self.anti_inflammatory_cytokine_Dirichlet_boundary_condition = FloatText(value=0,style=style, layout=widget_layout)
+        self.anti_inflammatory_cytokine_Dirichlet_boundary_condition_toggle = Checkbox(description='on/off', disabled=False,style=style, layout=widget_layout)
+
+        menv_var9 = Button(description='collagen (mol/micron^3)', disabled=True, layout=name_button_layout)
+        menv_var9.style.button_color = 'tan'
+
+        param_name33 = Button(description='diffusion_coefficient', disabled=True, layout=name_button_layout)
+
+        self.collagen_diffusion_coefficient = FloatText(value=1e-6,
+          step=1e-07,style=style, layout=widget_layout)
+
+        param_name34 = Button(description='decay_rate', disabled=True, layout=name_button_layout)
+
+        self.collagen_decay_rate = FloatText(value=1.02e-2,
+          step=0.001,style=style, layout=widget_layout)
+        param_name35 = Button(description='initial_condition', disabled=True, layout=name_button_layout)
+
+        self.collagen_initial_condition = FloatText(value=0,style=style, layout=widget_layout)
+        param_name36 = Button(description='Dirichlet_boundary_condition', disabled=True, layout=name_button_layout)
+
+        self.collagen_Dirichlet_boundary_condition = FloatText(value=0,style=style, layout=widget_layout)
+        self.collagen_Dirichlet_boundary_condition_toggle = Checkbox(description='on/off', disabled=False,style=style, layout=widget_layout)
         self.calculate_gradient = Checkbox(description='calculate_gradients', disabled=False, layout=desc_button_layout)
         self.track_internal = Checkbox(description='track_in_agents', disabled=False, layout=desc_button_layout)
 
@@ -174,6 +234,18 @@ class MicroenvTab(object):
         menv_units_button22 = Button(description='1/min', disabled=True, layout=units_button_layout) 
         menv_units_button23 = Button(description='mol/micron^3', disabled=True, layout=units_button_layout) 
         menv_units_button24 = Button(description='mol/micron^3', disabled=True, layout=units_button_layout) 
+        menv_units_button25 = Button(description='micron^2/min', disabled=True, layout=units_button_layout) 
+        menv_units_button26 = Button(description='1/min', disabled=True, layout=units_button_layout) 
+        menv_units_button27 = Button(description='mol/micron^3', disabled=True, layout=units_button_layout) 
+        menv_units_button28 = Button(description='mol/micron^3', disabled=True, layout=units_button_layout) 
+        menv_units_button29 = Button(description='micron^2/min', disabled=True, layout=units_button_layout) 
+        menv_units_button30 = Button(description='1/min', disabled=True, layout=units_button_layout) 
+        menv_units_button31 = Button(description='mol/micron^3', disabled=True, layout=units_button_layout) 
+        menv_units_button32 = Button(description='mol/micron^3', disabled=True, layout=units_button_layout) 
+        menv_units_button33 = Button(description='micron^2/min', disabled=True, layout=units_button_layout) 
+        menv_units_button34 = Button(description='1/min', disabled=True, layout=units_button_layout) 
+        menv_units_button35 = Button(description='mol/micron^3', disabled=True, layout=units_button_layout) 
+        menv_units_button36 = Button(description='mol/micron^3', disabled=True, layout=units_button_layout) 
 
 
 
@@ -208,8 +280,23 @@ class MicroenvTab(object):
         row22 = [param_name22, self.debris_decay_rate, menv_units_button22]
         row23 = [param_name23, self.debris_initial_condition, menv_units_button23]
         row24 = [param_name24, self.debris_Dirichlet_boundary_condition, menv_units_button24, self.debris_Dirichlet_boundary_condition_toggle]
-        row25 = [self.calculate_gradient,]
-        row26 = [self.track_internal,]
+        row_pro_pyroptosis_cytokine = [menv_var7,  ] 
+        row25 = [param_name25, self.pro_pyroptosis_cytokine_diffusion_coefficient, menv_units_button25]
+        row26 = [param_name26, self.pro_pyroptosis_cytokine_decay_rate, menv_units_button26]
+        row27 = [param_name27, self.pro_pyroptosis_cytokine_initial_condition, menv_units_button27]
+        row28 = [param_name28, self.pro_pyroptosis_cytokine_Dirichlet_boundary_condition, menv_units_button28, self.pro_pyroptosis_cytokine_Dirichlet_boundary_condition_toggle]
+        row_anti_inflammatory_cytokine = [menv_var8,  ] 
+        row29 = [param_name29, self.anti_inflammatory_cytokine_diffusion_coefficient, menv_units_button29]
+        row30 = [param_name30, self.anti_inflammatory_cytokine_decay_rate, menv_units_button30]
+        row31 = [param_name31, self.anti_inflammatory_cytokine_initial_condition, menv_units_button31]
+        row32 = [param_name32, self.anti_inflammatory_cytokine_Dirichlet_boundary_condition, menv_units_button32, self.anti_inflammatory_cytokine_Dirichlet_boundary_condition_toggle]
+        row_collagen = [menv_var9,  ] 
+        row33 = [param_name33, self.collagen_diffusion_coefficient, menv_units_button33]
+        row34 = [param_name34, self.collagen_decay_rate, menv_units_button34]
+        row35 = [param_name35, self.collagen_initial_condition, menv_units_button35]
+        row36 = [param_name36, self.collagen_Dirichlet_boundary_condition, menv_units_button36, self.collagen_Dirichlet_boundary_condition_toggle]
+        row37 = [self.calculate_gradient,]
+        row38 = [self.track_internal,]
 
 
         box_layout = Layout(display='flex', flex_flow='row', align_items='stretch', width='100%')
@@ -243,8 +330,23 @@ class MicroenvTab(object):
         box22 = Box(children=row22, layout=box_layout)
         box23 = Box(children=row23, layout=box_layout)
         box24 = Box(children=row24, layout=box_layout)
+        box_pro_pyroptosis_cytokine = Box(children=row_pro_pyroptosis_cytokine, layout=box_layout)
         box25 = Box(children=row25, layout=box_layout)
         box26 = Box(children=row26, layout=box_layout)
+        box27 = Box(children=row27, layout=box_layout)
+        box28 = Box(children=row28, layout=box_layout)
+        box_anti_inflammatory_cytokine = Box(children=row_anti_inflammatory_cytokine, layout=box_layout)
+        box29 = Box(children=row29, layout=box_layout)
+        box30 = Box(children=row30, layout=box_layout)
+        box31 = Box(children=row31, layout=box_layout)
+        box32 = Box(children=row32, layout=box_layout)
+        box_collagen = Box(children=row_collagen, layout=box_layout)
+        box33 = Box(children=row33, layout=box_layout)
+        box34 = Box(children=row34, layout=box_layout)
+        box35 = Box(children=row35, layout=box_layout)
+        box36 = Box(children=row36, layout=box_layout)
+        box37 = Box(children=row37, layout=box_layout)
+        box38 = Box(children=row38, layout=box_layout)
 
         self.tab = VBox([
           box_virion,
@@ -277,8 +379,23 @@ class MicroenvTab(object):
           box22,
           box23,
           box24,
+          box_pro_pyroptosis_cytokine,
           box25,
           box26,
+          box27,
+          box28,
+          box_anti_inflammatory_cytokine,
+          box29,
+          box30,
+          box31,
+          box32,
+          box_collagen,
+          box33,
+          box34,
+          box35,
+          box36,
+          box37,
+          box38,
         ])
 
     # Populate the GUI widgets with values from the XML
@@ -345,6 +462,33 @@ class MicroenvTab(object):
         else:
           self.debris_Dirichlet_boundary_condition_toggle.value = False
 
+        self.pro_pyroptosis_cytokine_diffusion_coefficient.value = float(vp[6].find('.//diffusion_coefficient').text)
+        self.pro_pyroptosis_cytokine_decay_rate.value = float(vp[6].find('.//decay_rate').text)
+        self.pro_pyroptosis_cytokine_initial_condition.value = float(vp[6].find('.//initial_condition').text)
+        self.pro_pyroptosis_cytokine_Dirichlet_boundary_condition.value = float(vp[6].find('.//Dirichlet_boundary_condition').text)
+        if vp[6].find('.//Dirichlet_boundary_condition').attrib['enabled'].lower() == 'true':
+          self.pro_pyroptosis_cytokine_Dirichlet_boundary_condition_toggle.value = True
+        else:
+          self.pro_pyroptosis_cytokine_Dirichlet_boundary_condition_toggle.value = False
+
+        self.anti_inflammatory_cytokine_diffusion_coefficient.value = float(vp[7].find('.//diffusion_coefficient').text)
+        self.anti_inflammatory_cytokine_decay_rate.value = float(vp[7].find('.//decay_rate').text)
+        self.anti_inflammatory_cytokine_initial_condition.value = float(vp[7].find('.//initial_condition').text)
+        self.anti_inflammatory_cytokine_Dirichlet_boundary_condition.value = float(vp[7].find('.//Dirichlet_boundary_condition').text)
+        if vp[7].find('.//Dirichlet_boundary_condition').attrib['enabled'].lower() == 'true':
+          self.anti_inflammatory_cytokine_Dirichlet_boundary_condition_toggle.value = True
+        else:
+          self.anti_inflammatory_cytokine_Dirichlet_boundary_condition_toggle.value = False
+
+        self.collagen_diffusion_coefficient.value = float(vp[8].find('.//diffusion_coefficient').text)
+        self.collagen_decay_rate.value = float(vp[8].find('.//decay_rate').text)
+        self.collagen_initial_condition.value = float(vp[8].find('.//initial_condition').text)
+        self.collagen_Dirichlet_boundary_condition.value = float(vp[8].find('.//Dirichlet_boundary_condition').text)
+        if vp[8].find('.//Dirichlet_boundary_condition').attrib['enabled'].lower() == 'true':
+          self.collagen_Dirichlet_boundary_condition_toggle.value = True
+        else:
+          self.collagen_Dirichlet_boundary_condition_toggle.value = False
+
         if uep.find('.//options//calculate_gradients').text.lower() == 'true':
           self.calculate_gradient.value = True
         else:
@@ -400,6 +544,24 @@ class MicroenvTab(object):
         vp[5].find('.//initial_condition').text = str(self.debris_initial_condition.value)
         vp[5].find('.//Dirichlet_boundary_condition').text = str(self.debris_Dirichlet_boundary_condition.value)
         vp[5].find('.//Dirichlet_boundary_condition').attrib['enabled'] = str(self.debris_Dirichlet_boundary_condition_toggle.value).lower()
+
+        vp[6].find('.//diffusion_coefficient').text = str(self.pro_pyroptosis_cytokine_diffusion_coefficient.value)
+        vp[6].find('.//decay_rate').text = str(self.pro_pyroptosis_cytokine_decay_rate.value)
+        vp[6].find('.//initial_condition').text = str(self.pro_pyroptosis_cytokine_initial_condition.value)
+        vp[6].find('.//Dirichlet_boundary_condition').text = str(self.pro_pyroptosis_cytokine_Dirichlet_boundary_condition.value)
+        vp[6].find('.//Dirichlet_boundary_condition').attrib['enabled'] = str(self.pro_pyroptosis_cytokine_Dirichlet_boundary_condition_toggle.value).lower()
+
+        vp[7].find('.//diffusion_coefficient').text = str(self.anti_inflammatory_cytokine_diffusion_coefficient.value)
+        vp[7].find('.//decay_rate').text = str(self.anti_inflammatory_cytokine_decay_rate.value)
+        vp[7].find('.//initial_condition').text = str(self.anti_inflammatory_cytokine_initial_condition.value)
+        vp[7].find('.//Dirichlet_boundary_condition').text = str(self.anti_inflammatory_cytokine_Dirichlet_boundary_condition.value)
+        vp[7].find('.//Dirichlet_boundary_condition').attrib['enabled'] = str(self.anti_inflammatory_cytokine_Dirichlet_boundary_condition_toggle.value).lower()
+
+        vp[8].find('.//diffusion_coefficient').text = str(self.collagen_diffusion_coefficient.value)
+        vp[8].find('.//decay_rate').text = str(self.collagen_decay_rate.value)
+        vp[8].find('.//initial_condition').text = str(self.collagen_initial_condition.value)
+        vp[8].find('.//Dirichlet_boundary_condition').text = str(self.collagen_Dirichlet_boundary_condition.value)
+        vp[8].find('.//Dirichlet_boundary_condition').attrib['enabled'] = str(self.collagen_Dirichlet_boundary_condition_toggle.value).lower()
 
 
         uep.find('.//options//calculate_gradients').text = str(self.calculate_gradient.value)
