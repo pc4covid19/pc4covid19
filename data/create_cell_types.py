@@ -1010,6 +1010,12 @@ for cell_def in uep.findall('cell_definition'):
 
     if uep_custom_data:  # if there are no elements in <custom_data>, we don't show the empty divider 
         print("\n  >>>  parse <custom_data> for " + cell_def.attrib['name'] )
+
+        fill_gui_and_xml_comment("# ---------  custom_data") 
+
+        subpath0_custom_data = ".//cell_definition[" + str(cell_def_count+1) + "]" + "//custom_data"
+        # subpath1 = subpath0  + "//" + child.tag
+
         divider_count += 1
         row_name = "div_row" + str(divider_count)
         cells_tab_header += "\n" + indent + row_name + " = " + "Button(description='Custom Data',disabled=True, layout=divider_button_layout)\n"
@@ -1028,6 +1034,11 @@ for cell_def in uep.findall('cell_definition'):
             w2 = "self.float" + str(float_var_count)
             float_var_count += 1
             cells_tab_header += create_float_text_widget(w2, cd.text, -1)
+
+            subpath1 = subpath0_custom_data  + "//" + cd.tag
+            print('-- fill_gui_and_xml with: w2=',w2,', subpath1=',subpath1)
+            fill_gui_and_xml(w2, subpath1)
+
 
             # w3 = "units_btn" 
             units_str = ""
