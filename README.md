@@ -1,8 +1,8 @@
 # pc4covid19 - COVID19 (SARS-CoV-2) tissue simulator nanoHUB app
 
-**Version:** 4.0
+**Version:** 4.1
 
-**Release date:** 20 November 2020 
+**Release date:** 25 November 2020 
 
 ## Overview
 This repository contains code and data for the nanoHUB app https://nanohub.org/tools/pc4covid19.
@@ -21,6 +21,9 @@ for a summary of changes to the model.
 **This model will be continually refined with input from the community, particularly experts in infectious diseases. The validation state will be updated as this progresses.**
 
 ## Release summary: 
+### 4.1:
+Bug fix: Cell Types custom_data were not setting/getting values to/from XML.
+
 ### 4.0:
 Updates to the core model. The Cell Types tab now shows "flattened" versions of the cell types, instead of 
 the hierarchical version in v3. The Out:Plots tab now has an additional "Extra analysis" plot and provides 
