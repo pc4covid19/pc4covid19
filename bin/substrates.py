@@ -236,6 +236,8 @@ class SubstrateTab(object):
            layout=Layout(width='150px')
         )
         self.colormap_dd = Dropdown(options=['viridis', 'jet', 'YlOrRd'],value='YlOrRd',layout=Layout(width='200px'))
+        # self.colormap_dd.observe(self.mcds_field_cb)
+        self.colormap_dd.observe(self.substrate_field_cb)
         hb2 = HBox([self.substrates_toggle,self.substrate_choice,self.colormap_dd], layout=Layout(width='350px', )) # border='1px solid black',))
 
         self.colormap_fixed_toggle = Checkbox(description='Fix',style = {'description_width': 'initial'}, layout=Layout(width='60px'))
@@ -424,19 +426,19 @@ class SubstrateTab(object):
         # self.substrate_choice.observe(self.mcds_field_changed_cb)
         self.substrate_choice.observe(self.substrate_field_changed_cb)
 
-        self.field_colormap = Dropdown(
-            options=['viridis', 'jet', 'YlOrRd'],
-            value='YlOrRd',
-            #     description='Field',
-           layout=Layout(width=constWidth)
-        )
+        # self.field_colormap = Dropdown(
+        #     options=['viridis', 'jet', 'YlOrRd'],
+        #     value='YlOrRd',
+        #     #     description='Field',
+        #    layout=Layout(width=constWidth)
+        # )
 
         # rwh2
 #        self.field_cmap.observe(self.plot_substrate)
         # self.field_colormap.observe(self.substrate_field_cb)
 
-        # self.colormap_min.observe(self.substrate_field_cb)
-        # self.colormap_max.observe(self.substrate_field_cb)
+        self.colormap_min.observe(self.substrate_field_cb)
+        self.colormap_max.observe(self.substrate_field_cb)
 
 #         self.cmap_fixed_toggle = Checkbox(
 #             description='Fix',
@@ -519,13 +521,15 @@ class SubstrateTab(object):
                 self.colormap_min.disabled = False
                 self.colormap_max.disabled = False
                 self.substrate_choice.disabled = False
-                self.field_colormap.disabled = False
+                # self.field_colormap.disabled = False
+                self.colormap_dd.disabled = False
             else:
                 self.colormap_fixed_toggle.disabled = True
                 self.colormap_min.disabled = True
                 self.colormap_max.disabled = True
                 self.substrate_choice.disabled = True
-                self.field_colormap.disabled = True
+                # self.field_colormap.disabled = True
+                self.colormap_dd.disabled = True
             self.skip_cb = False
 
             # print("substrates_toggle_cb:  i_plot.update")
@@ -877,6 +881,7 @@ class SubstrateTab(object):
         self.field_min_max[field_name][0] = self.colormap_min.value 
         self.field_min_max[field_name][1] = self.colormap_max.value
         self.field_min_max[field_name][2] = self.colormap_fixed_toggle.value
+        # print('rwh: substrate_field_cb: ',self.field_min_max)
 
 #        self.field_index = self.substrate_choice.value + 4
 #        print('field_index=',self.field_index)
@@ -1658,13 +1663,13 @@ class SubstrateTab(object):
             contour_ok = True
             if (self.colormap_fixed_toggle.value):
                 try:
-                    substrate_plot = self.ax0.contourf(xgrid, ygrid, M[self.field_index, :].reshape(self.numy, self.numx), levels=levels, extend='both', cmap=self.field_colormap.value, fontsize=self.fontsize)
+                    substrate_plot = self.ax0.contourf(xgrid, ygrid, M[self.field_index, :].reshape(self.numy, self.numx), levels=levels, extend='both', cmap=self.colormap_dd.value, fontsize=self.fontsize)
                 except:
                     contour_ok = False
                     # print('got error on contourf 1.')
             else:    
                 try:
-                    substrate_plot = self.ax0.contourf(xgrid, ygrid, M[self.field_index, :].reshape(self.numy,self.numx), num_contours, cmap=self.field_colormap.value)
+                    substrate_plot = self.ax0.contourf(xgrid, ygrid, M[self.field_index, :].reshape(self.numy,self.numx), num_contours, cmap=self.colormap_dd.value)
                 except:
                     contour_ok = False
                     # print('got error on contourf 2.')
