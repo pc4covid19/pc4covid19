@@ -1,8 +1,8 @@
 # pc4covid19 - COVID19 (SARS-CoV-2) tissue simulator nanoHUB app
 
-**Version:** 4.2
+**Version:** 5.0
 
-**Release date:** 20 January 2021 
+**Release date:** 3 November 2021 
 
 ## Overview
 This repository contains code and data for the nanoHUB app https://nanohub.org/tools/pc4covid19.
@@ -21,6 +21,9 @@ for a summary of changes to the model.
 **This model will be continually refined with input from the community, particularly experts in infectious diseases. The validation state will be updated as this progresses.**
 
 ## Release summary: 
+### 5.0
+Minor edits on the About tab. Increase the default output intervals to 180 mins (Config tab). Use "days" on analysis plots' x-axis labels (after 1 day).
+
 ### 4.2:
 Bug fix: Selectable colormaps and fixed ranges.
 
