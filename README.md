@@ -22,7 +22,7 @@ for a summary of changes to the model.
 
 ## Release summary: 
 ### 5.0
-* Due to core model changes: the Microenvironment tab now includes "Ig" and "ROS"; the Cell Types tab includes "residual".
+* Due to core model changes: the Microenvironment tab now includes "Ig" and "ROS"; the Cell Types tab includes "residual"; the User Params tab includes many changes.
 * Minor edits on the About tab. 
 * Increase the default output intervals to 180 mins (Config tab). 
 * Use "days" on analysis plots' x-axis labels (after 1 day).
