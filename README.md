@@ -22,7 +22,10 @@ for a summary of changes to the model.
 
 ## Release summary: 
 ### 5.0
-Minor edits on the About tab. Increase the default output intervals to 180 mins (Config tab). Use "days" on analysis plots' x-axis labels (after 1 day).
+* Due to core model changes: the Microenvironment tab now includes "Ig" and "ROS"; the Cell Types tab includes "residual".
+* Minor edits on the About tab. 
+* Increase the default output intervals to 180 mins (Config tab). 
+* Use "days" on analysis plots' x-axis labels (after 1 day).
 
 ### 4.2:
 Bug fix: Selectable colormaps and fixed ranges.
