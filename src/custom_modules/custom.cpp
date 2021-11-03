@@ -204,7 +204,7 @@ void setup_tissue( void )
 	
 	double triangle_stagger = sqrt(3.0) * spacing * 0.5; 
 	
-	// find hte cell nearest to the center 
+	// find the cell nearest to the center 
 	double nearest_distance_squared = 9e99; 
 	Cell* pNearestCell = NULL; 
 	
@@ -238,6 +238,8 @@ void setup_tissue( void )
 		}
 	}
 	
+	extern double EPICOUNT;
+	EPICOUNT = (*all_cells).size();
 	int number_of_virions = (int) ( parameters.doubles("multiplicity_of_infection") * 
 		(*all_cells).size() ); 
 	double single_virion_density_change = 1.0 / microenvironment.mesh.dV; 
@@ -360,6 +362,7 @@ std::vector<std::string> tissue_coloring_function( Cell* pCell )
 	static int DC_type = get_cell_definition( "DC" ).type; 
 	static int CD4_Tcell_type = get_cell_definition( "CD4 Tcell" ).type; 
 	static int fibroblast_type = get_cell_definition( "fibroblast" ).type; 
+	static int res_type = get_cell_definition( "residual" ).type; 
 	
 	// start with white 
 	
@@ -448,6 +451,14 @@ std::vector<std::string> tissue_coloring_function( Cell* pCell )
 	if( pCell->phenotype.death.dead == false && pCell->type == fibroblast_type )
 	{
 		output[0] = parameters.strings("fibroblast_color");  
+		output[2] = output[0];
+		output[3] = output[0];
+		return output; 
+	}
+	
+	if( pCell->phenotype.death.dead == false && pCell->type == res_type )
+	{
+		output[0] = "black";  
 		output[2] = output[0];
 		output[3] = output[0];
 		return output; 

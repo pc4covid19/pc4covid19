@@ -33,7 +33,7 @@
 #                                                                             #
 # BSD 3-Clause License (see https://opensource.org/licenses/BSD-3-Clause)     #
 #                                                                             #
-# Copyright (c) 2015-2018, Paul Macklin and the PhysiCell Project             #
+# Copyright (c) 2015-2021, Paul Macklin and the PhysiCell Project             #
 # All rights reserved.                                                        #
 #                                                                             #
 # Redistribution and use in source and binary forms, with or without          #
@@ -64,187 +64,95 @@
 #                                                                             #
 ###############################################################################
 */
+ 
+#include "./PhysiCell_basic_signaling.h"
 
-#include "./PhysiCell_custom.h" 
-#include <vector>
-#include <cstdio>
-#include <iostream>
-#include <cstring>
+using namespace BioFVM; 
 
-namespace PhysiCell
-{
+namespace PhysiCell{
 	
-Variable::Variable()
+Integrated_Signal::Integrated_Signal()
 {
-	name = "unnamed"; 
-	units = "dimensionless"; 
-	value = 0.0; 
-	return; 
-}
-
-std::ostream& operator<<(std::ostream& os, const Variable& v)
-{
-	os << v.name << ": " << v.value << " " << v.units; 
-	return os; 
-}
-
-
-Vector_Variable::Vector_Variable()
-{
-	name = "unnamed"; 
-	units = "dimensionless"; 
-	value.resize(3, 0.0 );
-	return; 
-}
-
-std::ostream& operator<<(std::ostream& os, const Vector_Variable& v)
-{
-	os << v.name << ": ";
-	for( int i=0; i < v.value.size()-1 ; i++ )
-	{ os << v.value[i] << ","; }
-	os << v.value[v.value.size()-1] << " (" << v.units << ")"; 
-	return os; 
-}
-
+	base_activity = 0.0; 
+	max_activity = 1.0; 
 	
-Custom_Cell_Data::Custom_Cell_Data()
-{
-//	std::cout << __FUNCTION__ << "(default)" << std::endl; 
-	variables.resize(0); 
-	vector_variables.resize(0); 
+	promoters.clear(); 
+	promoter_weights.clear(); 
 	
-	name_to_index_map.clear(); 
-//	vector_name_to_index_map.clear();
+	promoters_half_max = 0.1;
+	promoters_Hill = 4; 
 	
-	return;
-}
-
-Custom_Cell_Data::Custom_Cell_Data( const Custom_Cell_Data& ccd )
-{
-//	std::cout << __FUNCTION__ << "(copy)" << std::endl; 
-	variables = ccd.variables; 
-	vector_variables = ccd.vector_variables; 
+	inhibitors.clear(); 
+	inhibitor_weights.clear(); 
 	
-	name_to_index_map= ccd.name_to_index_map; 
+	inhibitors_half_max = 0.1; 
+	inhibitors_Hill = 4; 
 	
 	return; 
 }
 
-int Custom_Cell_Data::add_variable( Variable& v )
+void Integrated_Signal::reset( void )
 {
-	int n = variables.size(); 
-	variables.push_back( v ); 
-	name_to_index_map[ v.name ] = n; 
-	return n; 
+	promoters.clear(); 
+	promoter_weights.clear(); 
+
+	inhibitors.clear(); 
+	inhibitor_weights.clear(); 
+	return; 
 }
 
-int Custom_Cell_Data::add_variable( std::string name , std::string units , double value )
+double Integrated_Signal::compute_signal( void )
 {
-	int n = variables.size(); 
-	variables.resize( n+1 ); 
-	variables[n].name = name; 
-	variables[n].units = units; 
-	variables[n].value = value; 
-	name_to_index_map[ name ] = n; 
-	return n; 
-}
-
-int Custom_Cell_Data::add_variable( std::string name , double value )
-{
-	int n = variables.size(); 
-	variables.resize( n+1 ); 
-	variables[n].name = name; 
-	variables[n].units = "dimensionless"; 
-	variables[n].value = value; 
-	name_to_index_map[ name ] = n; 
-	return n; 
-}
-
-int Custom_Cell_Data::add_vector_variable( Vector_Variable& v )
-{
-	int n = vector_variables.size(); 
-	vector_variables.push_back( v ); 
-//	vector_name_to_index_map[ v.name ] = n; 
-	return n; 
-}
-
-int Custom_Cell_Data::add_vector_variable( std::string name , std::string units , std::vector<double>& value )
-{
-	int n = vector_variables.size(); 
-	vector_variables.resize( n+1 ); 
-	vector_variables[n].name = name; 
-	vector_variables[n].units = units; 
-	vector_variables[n].value = value; 
-//	vector_name_to_index_map[ name ] = n; 
-	return n; 
-}
-
-int Custom_Cell_Data::add_vector_variable( std::string name , std::vector<double>& value )
-{
-	int n = vector_variables.size(); 
-	vector_variables.resize( n+1 ); 
-	vector_variables[n].name = name; 
-	vector_variables[n].units = "dimensionless"; 
-	vector_variables[n].value = value; 
-//	vector_name_to_index_map[ name ] = n; 
-	return n; 
-}
-
-int Custom_Cell_Data::find_variable_index( std::string name )
-{
-	// this should return -1 if not found, not zero 
-	auto out = name_to_index_map.find( name ); 
-	if( out != name_to_index_map.end() )
-	{ return out->second; }
-	return -1; 
-}
-
-/*
-int Custom_Cell_Data::find_vector_variable_index( std::string name )
-{
-	return vector_name_to_index_map[ name ]; 
-}
-*/
-
-int Custom_Cell_Data::find_vector_variable_index( std::string name )
-{
-	int n = 0; 
-	while( n < vector_variables.size() )
-	{
-		if( std::strcmp( vector_variables[n].name.c_str() , name.c_str() ) == 0 )
-		{ return n; } 
-		n++; 
-	}
+	double pr = 0.0; 
+	double w = 0.0; 
+	for( int k=0 ; k < promoters.size() ; k++ )
+	{ pr += promoters[k]; w += promoter_weights[k]; } 
+	w += 1e-16; 
+	pr /= w; 
 	
-	return -1; 
-}
-
-
-double& Custom_Cell_Data::operator[](int i)
-{
-	return variables[i].value; 
-}
-
-double& Custom_Cell_Data::operator[]( std::string name )
-{
-	return variables[ name_to_index_map[name] ].value; 
-}
-
-std::ostream& operator<<(std::ostream& os, const Custom_Cell_Data& ccd)
-{
-	os << "Custom data (scalar): " << std::endl; 
-	for( int i=0 ; i < ccd.variables.size() ; i++ )
-	{
-		os << i << ": " << ccd.variables[i] << std::endl; 
-	}
-
-	os << "Custom data (vector): " << std::endl; 
-	for( int i=0 ; i < ccd.vector_variables.size() ; i++ )
-	{
-		os << i << ": " << ccd.vector_variables[i] << std::endl; 
-	}
+	double inhib = 0.0; 
+	w = 0.0; 
+	for( int k=0 ; k < inhibitors.size() ; k++ )
+	{ inhib += inhibitors[k]; w += inhibitor_weights[k]; } 
+	w += 1e-16; 
+	inhib /= w; 
 	
-	return os;
-}
+	double Pn = pow( pr , promoters_Hill ); 
+	double Phalf = pow( promoters_half_max , promoters_Hill ); 
 
+	double In = pow( inhib , inhibitors_Hill ); 
+	double Ihalf = pow( inhibitors_half_max , inhibitors_Hill ); 
+	
+	double P = Pn / ( Pn + Phalf ); 
+	double I = 1.0 / ( In + Ihalf ); 
+	
+	double output = max_activity; 
+	output -= base_activity; //(max-base)
+	output *= P; // (max-base)*P 
+	output += base_activity; // base + (max-base)*P 
+	output *= I; // (base + (max-base)*P)*I; 
+
+	return output; 
 };
+
+void Integrated_Signal::add_signal( char signal_type , double signal , double weight )
+{
+	if( signal_type == 'P' || signal_type == 'p' )
+	{
+		promoters.push_back( signal ); 
+		promoter_weights.push_back( weight ); 
+		return; 
+	}
+	if( signal_type == 'I' || signal_type == 'i' )
+	{
+		inhibitors.push_back( signal ); 
+		inhibitor_weights.push_back( weight ); 
+		return; 
+	}
+	return; 
+}
+
+void Integrated_Signal::add_signal( char signal_type , double signal )
+{ return add_signal( signal_type , signal , 1.0 ); }
+
+}; 

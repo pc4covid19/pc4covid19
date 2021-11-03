@@ -33,7 +33,7 @@
 #                                                                             #
 # BSD 3-Clause License (see https://opensource.org/licenses/BSD-3-Clause)     #
 #                                                                             #
-# Copyright (c) 2015-2018, Paul Macklin and the PhysiCell Project             #
+# Copyright (c) 2015-2021, Paul Macklin and the PhysiCell Project             #
 # All rights reserved.                                                        #
 #                                                                             #
 # Redistribution and use in source and binary forms, with or without          #
@@ -65,186 +65,77 @@
 ###############################################################################
 */
 
-#include "./PhysiCell_custom.h" 
+#ifndef __PhysiCell_geometry_h__
+#define __PhysiCell_geometry_h__
+
+#include <string>
 #include <vector>
-#include <cstdio>
-#include <iostream>
-#include <cstring>
+
+#include "../core/PhysiCell.h"
+#include "./PhysiCell_settings.h"
+
 
 namespace PhysiCell
 {
+// loaders 
 	
-Variable::Variable()
-{
-	name = "unnamed"; 
-	units = "dimensionless"; 
-	value = 0.0; 
-	return; 
-}
+void load_cells_csv( std::string filename ); // done 
+void load_cells_mat( std::string filename ); 
+void load_cells_physicell( std::string filename ); 
 
-std::ostream& operator<<(std::ostream& os, const Variable& v)
-{
-	os << v.name << ": " << v.value << " " << v.units; 
-	return os; 
-}
+bool load_cells_from_pugixml( pugi::xml_node root ); 
+bool load_cells_from_pugixml( void ); // load cells based on default config XML root 
 
 
-Vector_Variable::Vector_Variable()
-{
-	name = "unnamed"; 
-	units = "dimensionless"; 
-	value.resize(3, 0.0 );
-	return; 
-}
+//	
+// 2D functions 
+//
+void fill_circle( std::vector<double> center , double radius , Cell_Definition* pCD , double compression ); 
+void fill_circle( std::vector<double> center , double radius , Cell_Definition* pCD ); 
 
-std::ostream& operator<<(std::ostream& os, const Vector_Variable& v)
-{
-	os << v.name << ": ";
-	for( int i=0; i < v.value.size()-1 ; i++ )
-	{ os << v.value[i] << ","; }
-	os << v.value[v.value.size()-1] << " (" << v.units << ")"; 
-	return os; 
-}
-
-	
-Custom_Cell_Data::Custom_Cell_Data()
-{
-//	std::cout << __FUNCTION__ << "(default)" << std::endl; 
-	variables.resize(0); 
-	vector_variables.resize(0); 
-	
-	name_to_index_map.clear(); 
-//	vector_name_to_index_map.clear();
-	
-	return;
-}
-
-Custom_Cell_Data::Custom_Cell_Data( const Custom_Cell_Data& ccd )
-{
-//	std::cout << __FUNCTION__ << "(copy)" << std::endl; 
-	variables = ccd.variables; 
-	vector_variables = ccd.vector_variables; 
-	
-	name_to_index_map= ccd.name_to_index_map; 
-	
-	return; 
-}
-
-int Custom_Cell_Data::add_variable( Variable& v )
-{
-	int n = variables.size(); 
-	variables.push_back( v ); 
-	name_to_index_map[ v.name ] = n; 
-	return n; 
-}
-
-int Custom_Cell_Data::add_variable( std::string name , std::string units , double value )
-{
-	int n = variables.size(); 
-	variables.resize( n+1 ); 
-	variables[n].name = name; 
-	variables[n].units = units; 
-	variables[n].value = value; 
-	name_to_index_map[ name ] = n; 
-	return n; 
-}
-
-int Custom_Cell_Data::add_variable( std::string name , double value )
-{
-	int n = variables.size(); 
-	variables.resize( n+1 ); 
-	variables[n].name = name; 
-	variables[n].units = "dimensionless"; 
-	variables[n].value = value; 
-	name_to_index_map[ name ] = n; 
-	return n; 
-}
-
-int Custom_Cell_Data::add_vector_variable( Vector_Variable& v )
-{
-	int n = vector_variables.size(); 
-	vector_variables.push_back( v ); 
-//	vector_name_to_index_map[ v.name ] = n; 
-	return n; 
-}
-
-int Custom_Cell_Data::add_vector_variable( std::string name , std::string units , std::vector<double>& value )
-{
-	int n = vector_variables.size(); 
-	vector_variables.resize( n+1 ); 
-	vector_variables[n].name = name; 
-	vector_variables[n].units = units; 
-	vector_variables[n].value = value; 
-//	vector_name_to_index_map[ name ] = n; 
-	return n; 
-}
-
-int Custom_Cell_Data::add_vector_variable( std::string name , std::vector<double>& value )
-{
-	int n = vector_variables.size(); 
-	vector_variables.resize( n+1 ); 
-	vector_variables[n].name = name; 
-	vector_variables[n].units = "dimensionless"; 
-	vector_variables[n].value = value; 
-//	vector_name_to_index_map[ name ] = n; 
-	return n; 
-}
-
-int Custom_Cell_Data::find_variable_index( std::string name )
-{
-	// this should return -1 if not found, not zero 
-	auto out = name_to_index_map.find( name ); 
-	if( out != name_to_index_map.end() )
-	{ return out->second; }
-	return -1; 
-}
-
-/*
-int Custom_Cell_Data::find_vector_variable_index( std::string name )
-{
-	return vector_name_to_index_map[ name ]; 
-}
-*/
-
-int Custom_Cell_Data::find_vector_variable_index( std::string name )
-{
-	int n = 0; 
-	while( n < vector_variables.size() )
-	{
-		if( std::strcmp( vector_variables[n].name.c_str() , name.c_str() ) == 0 )
-		{ return n; } 
-		n++; 
-	}
-	
-	return -1; 
-}
+void fill_circle( std::vector<double> center , double radius , int cell_type , double compression );
+void fill_circle( std::vector<double> center , double radius , int cell_type ); 
 
 
-double& Custom_Cell_Data::operator[](int i)
-{
-	return variables[i].value; 
-}
+void fill_annulus( std::vector<double> center , double outer_radius , double inner_radius, Cell_Definition* pCD , double compression ); 
+void fill_annulus( std::vector<double> center , double outer_radius , double inner_radius, Cell_Definition* pCD ); 
 
-double& Custom_Cell_Data::operator[]( std::string name )
-{
-	return variables[ name_to_index_map[name] ].value; 
-}
+void fill_annulus( std::vector<double> center , double outer_radius , double inner_radius, int cell_type , double compression );
+void fill_annulus( std::vector<double> center , double outer_radius , double inner_radius, int cell_type ); 
 
-std::ostream& operator<<(std::ostream& os, const Custom_Cell_Data& ccd)
-{
-	os << "Custom data (scalar): " << std::endl; 
-	for( int i=0 ; i < ccd.variables.size() ; i++ )
-	{
-		os << i << ": " << ccd.variables[i] << std::endl; 
-	}
 
-	os << "Custom data (vector): " << std::endl; 
-	for( int i=0 ; i < ccd.vector_variables.size() ; i++ )
-	{
-		os << i << ": " << ccd.vector_variables[i] << std::endl; 
-	}
-	
-	return os;
-}
+// bounds = { xmin, ymin, zmin, xmax, ymax, zmax } 
+void fill_rectangle( std::vector<double> bounds , Cell_Definition* pCD , double compression ); 
+void fill_rectangle( std::vector<double> bounds , Cell_Definition* pCD ); 
+
+void fill_rectangle( std::vector<double> bounds , int cell_type , double compression );  
+void fill_rectangle( std::vector<double> bounds , int cell_type ); 
+
+
+//
+// 3D functions
+//
+void fill_sphere( std::vector<double> center , double radius , Cell_Definition* pCD , double compression ); 
+void fill_sphere( std::vector<double> center , double radius , Cell_Definition* pCD ); 
+
+void fill_sphere( std::vector<double> center , double radius , int cell_type , double compression ); 
+void fill_sphere( std::vector<double> center , double radius , int cell_type ); 
+
+// bounds = { xmin, ymin, zmin, xmax, ymax, zmax } 
+void fill_box( std::vector<double> bounds , Cell_Definition* pCD , double compression ); 
+void fill_box( std::vector<double> bounds , Cell_Definition* pCD ); 
+
+void fill_box( std::vector<double> bounds , int cell_type , double compression ); 
+void fill_box( std::vector<double> bounds , int cell_type ); 
+
+void draw_line( std::vector<double> start , std::vector<double> end , Cell_Definition* pCD , double compression ); 
+void draw_line( std::vector<double> start , std::vector<double> end , Cell_Definition* pCD ); 
+
+void draw_line( std::vector<double> start , std::vector<double> end , int cell_type , double compression ); 
+void draw_line( std::vector<double> start , std::vector<double> end , int cell_type ); 
+
+
 
 };
+
+#endif

@@ -176,7 +176,7 @@ class MicroenvTab(object):
 
         param_name30 = Button(description='decay_rate', disabled=True, layout=name_button_layout)
 
-        self.anti_inflammatory_cytokine_decay_rate = FloatText(value=1.02e-2,
+        self.anti_inflammatory_cytokine_decay_rate = FloatText(value=1.04e-2,
           step=0.001,style=style, layout=widget_layout)
         param_name31 = Button(description='initial_condition', disabled=True, layout=name_button_layout)
 
@@ -191,13 +191,13 @@ class MicroenvTab(object):
 
         param_name33 = Button(description='diffusion_coefficient', disabled=True, layout=name_button_layout)
 
-        self.collagen_diffusion_coefficient = FloatText(value=1e-6,
-          step=1e-07,style=style, layout=widget_layout)
+        self.collagen_diffusion_coefficient = FloatText(value=0,
+          step=0.01,style=style, layout=widget_layout)
 
         param_name34 = Button(description='decay_rate', disabled=True, layout=name_button_layout)
 
-        self.collagen_decay_rate = FloatText(value=1.02e-2,
-          step=0.001,style=style, layout=widget_layout)
+        self.collagen_decay_rate = FloatText(value=0,
+          step=0.01,style=style, layout=widget_layout)
         param_name35 = Button(description='initial_condition', disabled=True, layout=name_button_layout)
 
         self.collagen_initial_condition = FloatText(value=0,style=style, layout=widget_layout)
@@ -205,6 +205,46 @@ class MicroenvTab(object):
 
         self.collagen_Dirichlet_boundary_condition = FloatText(value=0,style=style, layout=widget_layout)
         self.collagen_Dirichlet_boundary_condition_toggle = Checkbox(description='on/off', disabled=False,style=style, layout=widget_layout)
+
+        menv_var10 = Button(description='Ig (mol/micron^3)', disabled=True, layout=name_button_layout)
+        menv_var10.style.button_color = 'lightgreen'
+
+        param_name37 = Button(description='diffusion_coefficient', disabled=True, layout=name_button_layout)
+
+        self.Ig_diffusion_coefficient = FloatText(value=6,
+          step=0.1,style=style, layout=widget_layout)
+
+        param_name38 = Button(description='decay_rate', disabled=True, layout=name_button_layout)
+
+        self.Ig_decay_rate = FloatText(value=0.00139,
+          step=0.0001,style=style, layout=widget_layout)
+        param_name39 = Button(description='initial_condition', disabled=True, layout=name_button_layout)
+
+        self.Ig_initial_condition = FloatText(value=0,style=style, layout=widget_layout)
+        param_name40 = Button(description='Dirichlet_boundary_condition', disabled=True, layout=name_button_layout)
+
+        self.Ig_Dirichlet_boundary_condition = FloatText(value=0,style=style, layout=widget_layout)
+        self.Ig_Dirichlet_boundary_condition_toggle = Checkbox(description='on/off', disabled=False,style=style, layout=widget_layout)
+
+        menv_var11 = Button(description='ROS (mol/micron^3)', disabled=True, layout=name_button_layout)
+        menv_var11.style.button_color = 'tan'
+
+        param_name41 = Button(description='diffusion_coefficient', disabled=True, layout=name_button_layout)
+
+        self.ROS_diffusion_coefficient = FloatText(value=1e-6,
+          step=1e-07,style=style, layout=widget_layout)
+
+        param_name42 = Button(description='decay_rate', disabled=True, layout=name_button_layout)
+
+        self.ROS_decay_rate = FloatText(value=60,
+          step=1,style=style, layout=widget_layout)
+        param_name43 = Button(description='initial_condition', disabled=True, layout=name_button_layout)
+
+        self.ROS_initial_condition = FloatText(value=0,style=style, layout=widget_layout)
+        param_name44 = Button(description='Dirichlet_boundary_condition', disabled=True, layout=name_button_layout)
+
+        self.ROS_Dirichlet_boundary_condition = FloatText(value=0,style=style, layout=widget_layout)
+        self.ROS_Dirichlet_boundary_condition_toggle = Checkbox(description='on/off', disabled=False,style=style, layout=widget_layout)
         self.calculate_gradient = Checkbox(description='calculate_gradients', disabled=False, layout=desc_button_layout)
         self.track_internal = Checkbox(description='track_in_agents', disabled=False, layout=desc_button_layout)
 
@@ -246,6 +286,14 @@ class MicroenvTab(object):
         menv_units_button34 = Button(description='1/min', disabled=True, layout=units_button_layout) 
         menv_units_button35 = Button(description='mol/micron^3', disabled=True, layout=units_button_layout) 
         menv_units_button36 = Button(description='mol/micron^3', disabled=True, layout=units_button_layout) 
+        menv_units_button37 = Button(description='micron^2/min', disabled=True, layout=units_button_layout) 
+        menv_units_button38 = Button(description='1/min', disabled=True, layout=units_button_layout) 
+        menv_units_button39 = Button(description='mol/micron^3', disabled=True, layout=units_button_layout) 
+        menv_units_button40 = Button(description='mol/micron^3', disabled=True, layout=units_button_layout) 
+        menv_units_button41 = Button(description='micron^2/min', disabled=True, layout=units_button_layout) 
+        menv_units_button42 = Button(description='1/min', disabled=True, layout=units_button_layout) 
+        menv_units_button43 = Button(description='mol/micron^3', disabled=True, layout=units_button_layout) 
+        menv_units_button44 = Button(description='mol/micron^3', disabled=True, layout=units_button_layout) 
 
 
 
@@ -295,8 +343,18 @@ class MicroenvTab(object):
         row34 = [param_name34, self.collagen_decay_rate, menv_units_button34]
         row35 = [param_name35, self.collagen_initial_condition, menv_units_button35]
         row36 = [param_name36, self.collagen_Dirichlet_boundary_condition, menv_units_button36, self.collagen_Dirichlet_boundary_condition_toggle]
-        row37 = [self.calculate_gradient,]
-        row38 = [self.track_internal,]
+        row_Ig = [menv_var10,  ] 
+        row37 = [param_name37, self.Ig_diffusion_coefficient, menv_units_button37]
+        row38 = [param_name38, self.Ig_decay_rate, menv_units_button38]
+        row39 = [param_name39, self.Ig_initial_condition, menv_units_button39]
+        row40 = [param_name40, self.Ig_Dirichlet_boundary_condition, menv_units_button40, self.Ig_Dirichlet_boundary_condition_toggle]
+        row_ROS = [menv_var11,  ] 
+        row41 = [param_name41, self.ROS_diffusion_coefficient, menv_units_button41]
+        row42 = [param_name42, self.ROS_decay_rate, menv_units_button42]
+        row43 = [param_name43, self.ROS_initial_condition, menv_units_button43]
+        row44 = [param_name44, self.ROS_Dirichlet_boundary_condition, menv_units_button44, self.ROS_Dirichlet_boundary_condition_toggle]
+        row45 = [self.calculate_gradient,]
+        row46 = [self.track_internal,]
 
 
         box_layout = Layout(display='flex', flex_flow='row', align_items='stretch', width='100%')
@@ -345,8 +403,18 @@ class MicroenvTab(object):
         box34 = Box(children=row34, layout=box_layout)
         box35 = Box(children=row35, layout=box_layout)
         box36 = Box(children=row36, layout=box_layout)
+        box_Ig = Box(children=row_Ig, layout=box_layout)
         box37 = Box(children=row37, layout=box_layout)
         box38 = Box(children=row38, layout=box_layout)
+        box39 = Box(children=row39, layout=box_layout)
+        box40 = Box(children=row40, layout=box_layout)
+        box_ROS = Box(children=row_ROS, layout=box_layout)
+        box41 = Box(children=row41, layout=box_layout)
+        box42 = Box(children=row42, layout=box_layout)
+        box43 = Box(children=row43, layout=box_layout)
+        box44 = Box(children=row44, layout=box_layout)
+        box45 = Box(children=row45, layout=box_layout)
+        box46 = Box(children=row46, layout=box_layout)
 
         self.tab = VBox([
           box_virion,
@@ -394,8 +462,18 @@ class MicroenvTab(object):
           box34,
           box35,
           box36,
+          box_Ig,
           box37,
           box38,
+          box39,
+          box40,
+          box_ROS,
+          box41,
+          box42,
+          box43,
+          box44,
+          box45,
+          box46,
         ])
 
     # Populate the GUI widgets with values from the XML
@@ -489,6 +567,24 @@ class MicroenvTab(object):
         else:
           self.collagen_Dirichlet_boundary_condition_toggle.value = False
 
+        self.Ig_diffusion_coefficient.value = float(vp[9].find('.//diffusion_coefficient').text)
+        self.Ig_decay_rate.value = float(vp[9].find('.//decay_rate').text)
+        self.Ig_initial_condition.value = float(vp[9].find('.//initial_condition').text)
+        self.Ig_Dirichlet_boundary_condition.value = float(vp[9].find('.//Dirichlet_boundary_condition').text)
+        if vp[9].find('.//Dirichlet_boundary_condition').attrib['enabled'].lower() == 'true':
+          self.Ig_Dirichlet_boundary_condition_toggle.value = True
+        else:
+          self.Ig_Dirichlet_boundary_condition_toggle.value = False
+
+        self.ROS_diffusion_coefficient.value = float(vp[10].find('.//diffusion_coefficient').text)
+        self.ROS_decay_rate.value = float(vp[10].find('.//decay_rate').text)
+        self.ROS_initial_condition.value = float(vp[10].find('.//initial_condition').text)
+        self.ROS_Dirichlet_boundary_condition.value = float(vp[10].find('.//Dirichlet_boundary_condition').text)
+        if vp[10].find('.//Dirichlet_boundary_condition').attrib['enabled'].lower() == 'true':
+          self.ROS_Dirichlet_boundary_condition_toggle.value = True
+        else:
+          self.ROS_Dirichlet_boundary_condition_toggle.value = False
+
         if uep.find('.//options//calculate_gradients').text.lower() == 'true':
           self.calculate_gradient.value = True
         else:
@@ -562,6 +658,18 @@ class MicroenvTab(object):
         vp[8].find('.//initial_condition').text = str(self.collagen_initial_condition.value)
         vp[8].find('.//Dirichlet_boundary_condition').text = str(self.collagen_Dirichlet_boundary_condition.value)
         vp[8].find('.//Dirichlet_boundary_condition').attrib['enabled'] = str(self.collagen_Dirichlet_boundary_condition_toggle.value).lower()
+
+        vp[9].find('.//diffusion_coefficient').text = str(self.Ig_diffusion_coefficient.value)
+        vp[9].find('.//decay_rate').text = str(self.Ig_decay_rate.value)
+        vp[9].find('.//initial_condition').text = str(self.Ig_initial_condition.value)
+        vp[9].find('.//Dirichlet_boundary_condition').text = str(self.Ig_Dirichlet_boundary_condition.value)
+        vp[9].find('.//Dirichlet_boundary_condition').attrib['enabled'] = str(self.Ig_Dirichlet_boundary_condition_toggle.value).lower()
+
+        vp[10].find('.//diffusion_coefficient').text = str(self.ROS_diffusion_coefficient.value)
+        vp[10].find('.//decay_rate').text = str(self.ROS_decay_rate.value)
+        vp[10].find('.//initial_condition').text = str(self.ROS_initial_condition.value)
+        vp[10].find('.//Dirichlet_boundary_condition').text = str(self.ROS_Dirichlet_boundary_condition.value)
+        vp[10].find('.//Dirichlet_boundary_condition').attrib['enabled'] = str(self.ROS_Dirichlet_boundary_condition_toggle.value).lower()
 
 
         uep.find('.//options//calculate_gradients').text = str(self.calculate_gradient.value)
